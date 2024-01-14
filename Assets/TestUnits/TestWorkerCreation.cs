@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class TestWorkerCreation : MonoBehaviour
 {
+    [SerializeField]
+    WorkerManager wm;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +20,9 @@ public class TestWorkerCreation : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            Worker.CreateWorkers(99);
-            Worker.DebugAll();
+            wm = WorkerManager.Instance;
+            WorkerManager.Instance.CreateWorkers(99);
+            WorkerManager.Instance.DebugAll();
         }
     }
 }

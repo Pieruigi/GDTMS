@@ -13,65 +13,33 @@ namespace GDTMS
 
         static List<SkillAsset> skillAssets;
 
+
         [SerializeField]
-        string name;
+        SkillAsset asset;
 
         /// <summary>
         /// 
         /// </summary>
         [SerializeField]
         int mark;
+        public int Mark
+        {
+            get { return mark; }
+        }
 
         [SerializeField]
         SkillType type;
-
-        //[SerializeField]
-        //Seniority seniority;
-
-
-        private Skill(string name, int mark, SkillType type) 
+        public SkillType Type
         {
-            this.name = name;
-            this.type = type;
+            get { return type; }
+        }
+
+     
+        public Skill(SkillAsset asset, int mark)
+        {
             this.mark = mark;
-        }
-
-        
-
-
-        public static Skill Create(SkillAsset asset, int mark)
-        {
-            return new Skill(asset.name, mark, SkillType.Create(asset.TypeAsset));
-        }
-
-        public static List<Skill> CreateSkillGroup(SkillTypeAsset groupAsset, int mark)
-        {
-            List<Skill> ret = new List<Skill>();
-            // Load resources
-            List<SkillAsset> skillAssets = new List<SkillAsset>(Resources.LoadAll<SkillAsset>(SkillAsset.ResourceFolder)).FindAll(s=>s.TypeAsset == groupAsset);
-            int left = mark;
-            // Add at least 1 point to each skill
-            int[] marks = new int[skillAssets.Count];
-            for(int i=0; i<marks.Length; i++)
-            {
-                marks[i] = 1;
-                left--;
-            }
-            // Keep adding point
-            while (left > 0)
-            {
-                int m = Random.Range(1, left + 1);
-                left -= m;
-                marks[Random.Range(0, marks.Length)] += m;
-            }
-            // Create skills
-            for(int i=0; i<skillAssets.Count; i++)
-            {
-                SkillAsset s = skillAssets[i];
-                ret.Add(Create(s, marks[i]));
-            }
-            Debug.Log($"Created {skillAssets.Count} skills");
-            return ret;
+            this.asset = asset;
+            type = SkillType.GetSkillType(asset.TypeAsset);
         }
 
         public static List<SkillAsset> GetSkillAssets()
@@ -81,9 +49,21 @@ namespace GDTMS
             return skillAssets;
         }
 
+        public int Increase(int value)
+        {
+            int oldMark = mark;
+            mark = Mathf.Min(mark + value, MaxMark);
+            return mark - oldMark;
+        }
+
+        public float GetPricePerHour()
+        {
+            return mark * asset.PricePerPoint;
+        }
+
         public override string ToString()
         {
-            return $"[Skill Name:{name}, Mark:{mark}, Type:{type}]";
+            return $"[Skill Name:{asset.name}, Mark:{mark}, Type:{type}]";
         }
     }
 

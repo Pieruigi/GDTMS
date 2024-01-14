@@ -8,7 +8,12 @@ namespace GDTMS.Scriptables
     {
         public const string ResourceFolder = "Skills";
 
-
+        [SerializeField]
+        float pricePerPoint = 1;
+        public float PricePerPoint
+        {
+            get { return pricePerPoint; }
+        }
 
         [SerializeField]
         SkillTypeAsset typeAsset;

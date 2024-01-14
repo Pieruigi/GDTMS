@@ -10,13 +10,15 @@ namespace GDTMS
     {
         static List<SkillTypeAsset> skillTypeAssets;
 
+        static List<SkillType> skillTypes = new List<SkillType>();
+
+        
         [SerializeField]
-        string name;
+        SkillTypeAsset asset;
 
-
-        SkillType(string name)
+        SkillType(SkillTypeAsset asset)
         {
-            this.name = name;
+            this.asset = asset;
         }
 
         public static List<SkillTypeAsset> GetSkillTypeAssets()
@@ -26,13 +28,17 @@ namespace GDTMS
             return skillTypeAssets;
         }
 
-
-        public static SkillType Create(SkillTypeAsset asset)
+        public static SkillType GetSkillType(SkillTypeAsset asset)
         {
-            return new SkillType(asset.name);
+            if (!skillTypes.Exists(s => s.asset == asset))
+                skillTypes.Add(new SkillType(asset));
+
+            return skillTypes.Find(s => s.asset == asset);
         }
 
+        
 
+        
         
     }
 
