@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc11478eaf567a4b93770f99362bea5, type: 3}
   m_Name: Gameplay
   m_EditorClassIdentifier: 
-  value: 50
-  categoryAsset: {fileID: 11400000, guid: 56caaf0f2b2261840ae4a11cf1e62dfb, type: 2}
+  typeAsset: {fileID: 11400000, guid: 56caaf0f2b2261840ae4a11cf1e62dfb, type: 2}

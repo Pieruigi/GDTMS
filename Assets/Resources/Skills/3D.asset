@@ -12,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc11478eaf567a4b93770f99362bea5, type: 3}
   m_Name: 3D
   m_EditorClassIdentifier: 
-  value: 50
-  categoryAsset: {fileID: 11400000, guid: e0ce1cb0c9c57334d9315f812b291343, type: 2}
+  typeAsset: {fileID: 11400000, guid: e0ce1cb0c9c57334d9315f812b291343, type: 2}

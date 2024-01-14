@@ -29,8 +29,44 @@ namespace GDTMS
             worker.nameIndex = nameIndex;
             worker.surnameIndex = surnameIndex;
 
-            // Worker total mark
+            
             Debug.Log($"Worker total mark:{mark}");
+
+            // Init skills
+            List<SkillAsset> skillAssets = Skill.GetSkillAssets();
+            List<SkillTypeAsset> skillTypeAssets = SkillType.GetSkillTypeAssets();
+            // We want to choose 1 or at most 2 preferred skills giving them most of the worker mark
+            SkillAsset[] prefSkillIds = new SkillAsset[Random.Range(0,2)];
+            prefSkillIds[0] = skillAssets[Random.Range(0, skillAssets.Count)];
+            if(prefSkillIds.Length > 1)
+            {
+                List<SkillAsset> sa = null;
+                // Set the second skill
+                if (Random.Range(0, 5) < 4)
+                {
+                    // The same group of the first
+                    sa = skillAssets.FindAll(s => s.TypeAsset == prefSkillIds[1].TypeAsset && s != prefSkillIds[1]);
+                }
+                else
+                {
+                    // A different group
+                    sa = skillAssets.FindAll(s => s != prefSkillIds[1]);
+                }
+
+                prefSkillIds[1] = sa[Random.Range(0, sa.Count)];
+            }
+
+            // We first set all skills with at least one point
+            int left = mark;
+            int[] marks = new int[skillAssets.Count];
+            for (int i = 0; i < marks.Length; i++)
+                marks[i] = 1;
+            // Update left points
+            left -= marks.Length; 
+
+
+            // We set marks for the preferred skills
+
 
             //// Init skills
             //// Get assets 
@@ -46,7 +82,7 @@ namespace GDTMS
             //    marks[i] = skillAssets.Count(s => s.TypeAsset == groupAssets[i]);
             //    left -= marks[i];
             //}
-            
+
             //// Set preferred mark
             //// Set a preferred skill type
             //int prefIndex = Random.Range(0, groupAssets.Count);
