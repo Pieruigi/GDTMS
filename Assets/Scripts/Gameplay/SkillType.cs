@@ -8,6 +8,8 @@ namespace GDTMS
     [System.Serializable]
     public class SkillType
     {
+        static List<SkillTypeAsset> skillTypeAssets;
+
         [SerializeField]
         string name;
 
@@ -17,11 +19,20 @@ namespace GDTMS
             this.name = name;
         }
 
+        public static List<SkillTypeAsset> GetSkillTypeAssets()
+        {
+            if (skillTypeAssets == null)
+                skillTypeAssets = new List<SkillTypeAsset>(Resources.LoadAll<SkillTypeAsset>(SkillTypeAsset.ResourceFolder));
+            return skillTypeAssets;
+        }
+
+
         public static SkillType Create(SkillTypeAsset asset)
         {
             return new SkillType(asset.name);
-            
         }
+
+
         
     }
 
