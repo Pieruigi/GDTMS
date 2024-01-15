@@ -14,8 +14,11 @@ namespace GDTMS
         }
 
         [SerializeField]
-        public List<Worker> workers = new List<Worker>();
-
+        List<Worker> workers = new List<Worker>();
+        public IList<Worker> Workers
+        {
+            get { return workers.AsReadOnly(); }
+        }
 
 
         /// <summary>
@@ -51,6 +54,8 @@ namespace GDTMS
 
 
         }
+
+        
 
         public void DebugAll()
         {

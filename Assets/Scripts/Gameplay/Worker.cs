@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace GDTMS
 {
+    
+    public enum WorkerStatus { Available, Unavailable, NotBusy, Working }
+
     [System.Serializable]
     public class Worker
     {
@@ -13,6 +16,12 @@ namespace GDTMS
 
         int nameIndex = -1;
         int surnameIndex = -1;
+
+        WorkerStatus status = WorkerStatus.Available;
+        public WorkerStatus Status
+        {
+            get { return status; }
+        }
 
         [SerializeField]
         List<Skill> skills = new List<Skill>();
@@ -73,24 +82,16 @@ namespace GDTMS
                 prefSkills[1] = sl[Random.Range(0, sl.Count)];
             }
 
-            // We first set all skills with at least one point
-            int left = mark;
-            //int[] marks = new int[skillAssets.Count];
-            //for (int i = 0; i < marks.Length; i++)
-            //    marks[i] = 1;
-            //// Update left points
-            //left -= marks.Length;
 
             // We start assigning half of the total point to the preferred skills
+            int left = mark;
             for(int i=0; i<prefSkills.Length; i++)
             {
                 int count = Mathf.RoundToInt(left * (prefSkills.Length == 1 ? .5f : .25f));
-                //if (count > Skill.MaxMark-1) count = Skill.MaxMark-1; // Skill has been initialized to 1
-                //marks[skillAssets.IndexOf(prefSkills[i])] += count;
                 left -= prefSkills[i].Increase(count);
             }
 
-            // Keep adding points
+            // Keep adding remaining points
             List<Skill> others = new List<Skill>();
             for (int i = 0; i < skills.Count; i++)
                 if (skills[i].Mark < Skill.MaxMark) others.Add(skills[i]);
@@ -103,6 +104,8 @@ namespace GDTMS
                 left--;
             }
 
+            // Set the worker status 
+            status = Random.Range(0, 100) < 5 ? WorkerStatus.Unavailable : WorkerStatus.Available;
         }
 
         public int GetPricePerHour()
@@ -110,7 +113,7 @@ namespace GDTMS
             int price = 0;
             foreach (var s in skills)
             {
-                price += (int) s.GetPricePerHour();
+                price += (int) (s.GetPricePerHour() - s.GetPricePerHour() % 10);
             }
 
             return price;
@@ -125,7 +128,7 @@ namespace GDTMS
                 ret += $"\n{s}";
                 mark += s.Mark;
             }
-            ret = $"[Worker - Name:{NameCollection.Instance.GetName(nameIndex)}, Surname:{NameCollection.Instance.GetSurname(surnameIndex)}, Mark:{mark}, $/H:{GetPricePerHour()}]" + ret;
+            ret = $"[Worker - Name:{NameCollection.Instance.GetName(nameIndex)}, Surname:{NameCollection.Instance.GetSurname(surnameIndex)}, Mark:{mark}, $/H:{GetPricePerHour()}, Status:{status.ToString()}]" + ret;
 
             return ret;
         }
