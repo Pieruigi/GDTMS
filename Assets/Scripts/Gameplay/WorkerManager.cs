@@ -13,6 +13,9 @@ namespace GDTMS
             get { if (instance == null) instance = new WorkerManager(); return instance; }
         }
 
+        /// <summary>
+        /// Available workers
+        /// </summary>
         [SerializeField]
         List<Worker> workers = new List<Worker>();
         public IList<Worker> Workers
@@ -20,6 +23,40 @@ namespace GDTMS
             get { return workers.AsReadOnly(); }
         }
 
+        [SerializeField]
+        List<Worker> onDutyWorkers = new List<Worker>();
+
+
+        WorkerManager()
+        {
+            TimeManager.OnDayCompleted += HandleOnDayCompleted;
+        }
+
+        void HandleOnDayCompleted()
+        {
+            // Update on duty workers
+            foreach(Worker w in onDutyWorkers)
+            {
+                w.IncreaseDaysOnDuty();
+            }
+
+            // Check if is pay day
+            if (TimeManager.Instance.IsPayDay())
+            {
+                // Get money from the bank account
+                FinanceManager.Instance.Withdraw(ComputeSalaryAll());
+            }
+        }
+
+        int ComputeSalaryAll()
+        {
+            int ret = 0;
+            foreach(Worker w in onDutyWorkers)
+            {
+                ret += w.GetDailyCost() * w.DaysOnDuty;
+            }
+            return ret;
+        }
 
         /// <summary>
         /// Create a whole bunch of workers
@@ -55,7 +92,16 @@ namespace GDTMS
 
         }
 
-        
+        public void Hire(Worker worker)
+        {
+            if (onDutyWorkers.Contains(worker))
+                return;
+            // Remove the worker from the search list
+            //workers.Remove(worker);
+            // Add the new worker to the onDuty list
+            onDutyWorkers.Add(worker);
+            
+        }
 
         public void DebugAll()
         {

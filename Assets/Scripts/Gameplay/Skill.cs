@@ -34,11 +34,22 @@ namespace GDTMS
             get { return type; }
         }
 
-     
+        public string Name
+        {
+            get { return asset.name; }
+        }
+
+        string shortName;
+        public string ShortName
+        {
+            get { return shortName; }
+        }
+
         public Skill(SkillAsset asset, int mark)
         {
             this.mark = mark;
             this.asset = asset;
+            shortName = asset.ShortName;
             type = SkillType.GetSkillType(asset.TypeAsset);
         }
 
@@ -56,9 +67,9 @@ namespace GDTMS
             return mark - oldMark;
         }
 
-        public float GetPricePerHour()
+        public float GetDailyCost()
         {
-            return mark * asset.PricePerPoint;
+            return mark * asset.CostPerPoint;
         }
 
         public override string ToString()

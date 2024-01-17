@@ -19,7 +19,7 @@ namespace GDTMS.UI
         [SerializeField]
         int maxWorkerPerPage = 24;
 
-        //List<GameObject> workers = new List<GameObject>();
+        List<Worker> workers;
 
         int currentPage = 0;
 
@@ -38,25 +38,31 @@ namespace GDTMS.UI
         private void OnEnable()
         {
             Debug.Log("Enable UI");
+            // Set worker internal list
+            workers = new List<Worker>(WorkerManager.Instance.Workers);
+
             // Reset current page
             currentPage = 0;
             // Show current page
-            ShowCurrentPage();
+            if(workers.Count > 0)
+                ShowCurrentPage();
             
         }
 
         private void OnDisable()
         {
             // Release workers
-            ClearWorkers();
+            ClearWorkerUIAll();
 
-            
+            // Release list
+            workers.Clear();
+            workers = null;
         }
 
         void ShowCurrentPage()
         {
             // Remove the old page
-            ClearWorkers();
+            ClearWorkerUIAll();
 
             int offset = currentPage * maxWorkerPerPage;
             
@@ -64,11 +70,13 @@ namespace GDTMS.UI
             {
                 int index = i + offset;
 
-                if (WorkerManager.Instance.Workers.Count < i + offset)
+                if (workers.Count - 1 < index)
                     break;
 
                 // Instantiate a new worker ui element
-                GameObject wui = Instantiate(workerPrefab, content);
+                GameObject w = Instantiate(workerPrefab, content);
+                // Init worker ui
+                w.GetComponent<WorkerUI>().Init(workers[index]);
             }
 
             // Update buttons
@@ -80,7 +88,7 @@ namespace GDTMS.UI
                 buttonNext.interactable = true;
         }
 
-        void ClearWorkers()
+        void ClearWorkerUIAll()
         {
             int count = content.childCount;
             for (int i = 0; i < count; i++)

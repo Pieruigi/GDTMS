@@ -9,10 +9,17 @@ namespace GDTMS.Scriptables
         public const string ResourceFolder = "Skills";
 
         [SerializeField]
-        float pricePerPoint = 1;
-        public float PricePerPoint
+        string shortName;
+        public string ShortName
         {
-            get { return pricePerPoint; }
+            get { return shortName; }
+        }
+
+        [SerializeField]
+        float costPerPoint = 1;
+        public float CostPerPoint
+        {
+            get { return costPerPoint; }
         }
 
         [SerializeField]

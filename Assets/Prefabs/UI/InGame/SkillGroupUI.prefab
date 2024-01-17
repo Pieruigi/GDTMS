@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 987213549239815194}
   - component: {fileID: 1721392457149897328}
+  - component: {fileID: -3452487675549511417}
   m_Layer: 5
   m_Name: SkillGroupUI
   m_TagString: Untagged
@@ -52,6 +53,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_HorizontalFit: 0
   m_VerticalFit: 0
+--- !u!114 &-3452487675549511417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3049793880083993821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7744fa232c930e2478b7bd23dc634f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: {fileID: 6916517218081028998}
+  skillPrefab: {fileID: 4144384266904102300, guid: 12b2733eded7e184694edc31caec3e86, type: 3}
+  content: {fileID: 8432955519001995045}
 --- !u!1 &6263007629892331765
 GameObject:
   m_ObjectHideFlags: 0

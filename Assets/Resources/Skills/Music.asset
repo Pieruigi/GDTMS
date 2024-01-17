@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adc11478eaf567a4b93770f99362bea5, type: 3}
   m_Name: Music
   m_EditorClassIdentifier: 
+  shortName: Music
   pricePerPoint: 0.6
   typeAsset: {fileID: 11400000, guid: 1a327cb56e340ce4289c183744357e2d, type: 2}

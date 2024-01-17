@@ -7,7 +7,7 @@ using UnityEngine;
 namespace GDTMS
 {
     
-    public enum WorkerStatus { Available, Unavailable, NotBusy, Working }
+    //public enum WorkerStatus { Available, OnDuty }
 
     [System.Serializable]
     public class Worker
@@ -15,18 +15,48 @@ namespace GDTMS
         
 
         int nameIndex = -1;
+        public string Name
+        {
+            get { return NameCollection.Instance.GetName(nameIndex); }
+        }
         int surnameIndex = -1;
 
-        WorkerStatus status = WorkerStatus.Available;
-        public WorkerStatus Status
+
+        //WorkerStatus status = WorkerStatus.Available;
+        //public WorkerStatus Status
+        //{
+        //    get { return status; }
+        //}
+        bool onDuty = false;
+        public bool OnDuty
         {
-            get { return status; }
+            get { return onDuty; }
         }
 
         [SerializeField]
         List<Skill> skills = new List<Skill>();
+        public IList<Skill> Skills
+        {
+            get { return skills; }
+        }
 
-       
+        /// <summary>
+        /// Skills gained while on duty
+        /// </summary>
+        [SerializeField]
+        List<Skill> gainedSkills = new List<Skill>();
+
+        
+        /// <summary>
+        /// How long has been working for us.
+        /// Zero means you have just been employed.
+        /// </summary>
+        int daysOnDuty = 0; 
+        public int DaysOnDuty
+        {
+            get { return daysOnDuty; }
+        }
+
         public Worker(int mark)
         {
             
@@ -104,19 +134,31 @@ namespace GDTMS
                 left--;
             }
 
-            // Set the worker status 
-            status = Random.Range(0, 100) < 5 ? WorkerStatus.Unavailable : WorkerStatus.Available;
+            
         }
 
-        public int GetPricePerHour()
+        public int GetDailyCost()
         {
             int price = 0;
             foreach (var s in skills)
             {
-                price += (int) (s.GetPricePerHour() - s.GetPricePerHour() % 10);
+                price += (int) (s.GetDailyCost() - s.GetDailyCost() % 10); // Some kind of normalization
             }
 
-            return price;
+            return price * 8;
+        }
+
+
+        public void Hire()
+        {
+            onDuty = true;
+            daysOnDuty = 0;
+        }
+
+        public void IncreaseDaysOnDuty()
+        {
+            daysOnDuty++;
+            // Manage on duty multiplier here
         }
 
         public override string ToString()
@@ -128,7 +170,7 @@ namespace GDTMS
                 ret += $"\n{s}";
                 mark += s.Mark;
             }
-            ret = $"[Worker - Name:{NameCollection.Instance.GetName(nameIndex)}, Surname:{NameCollection.Instance.GetSurname(surnameIndex)}, Mark:{mark}, $/H:{GetPricePerHour()}, Status:{status.ToString()}]" + ret;
+            ret = $"[Worker - Name:{NameCollection.Instance.GetName(nameIndex)}, Surname:{NameCollection.Instance.GetSurname(surnameIndex)}, Mark:{mark}, $/H:{GetDailyCost()}, OnDuty:{OnDuty}]" + ret;
 
             return ret;
         }

@@ -86,6 +86,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3073041177717879998}
+  - component: {fileID: 7664485030289453085}
   m_Layer: 5
   m_Name: WorkerUI
   m_TagString: Untagged
@@ -113,6 +114,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7664485030289453085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1719268385511538518}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6850c0b2ed66e7a4fbc374ea3e5d2eea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fieldName: {fileID: 7885135376232741629}
+  skillGroupPrefab: {fileID: 3049793880083993821, guid: 68e843bb96eb96745882ff021254a0d2, type: 3}
+  skillGroupContent: {fileID: 8520829757136414824}
 --- !u!1 &3145057153359771502
 GameObject:
   m_ObjectHideFlags: 0
@@ -200,7 +216,7 @@ GameObject:
   - component: {fileID: 8520829757136414824}
   - component: {fileID: 5778881742313914059}
   m_Layer: 5
-  m_Name: Skills
+  m_Name: Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -646,7 +662,7 @@ GameObject:
   - component: {fileID: 7600084575323949061}
   - component: {fileID: 7351633676639200592}
   m_Layer: 5
-  m_Name: HIreButton
+  m_Name: HireButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -753,7 +769,43 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7600084575323949061}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7664485030289453085}
+        m_TargetAssemblyTypeName: GDTMS.UI.WorkerUI, Assembly-CSharp
+        m_MethodName: Hire
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7351633676639200592}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Selectable, UnityEngine.UI
+        m_MethodName: set_interactable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2449467808277694672}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: set_text
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Hired
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7603188871795898550
 GameObject:
   m_ObjectHideFlags: 0

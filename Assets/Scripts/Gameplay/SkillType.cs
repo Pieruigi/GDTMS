@@ -11,10 +11,19 @@ namespace GDTMS
         static List<SkillTypeAsset> skillTypeAssets;
 
         static List<SkillType> skillTypes = new List<SkillType>();
+        public static IList<SkillType> SkillTypeAll
+        {
+            get { return skillTypes.AsReadOnly(); }
+        }
 
         
         [SerializeField]
         SkillTypeAsset asset;
+
+        public string Name
+        {
+            get { return asset.name; }
+        }
 
         SkillType(SkillTypeAsset asset)
         {

@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8263121887118337716}
+  - component: {fileID: -7414223100462912179}
   m_Layer: 5
   m_Name: SkillUI
   m_TagString: Untagged
@@ -37,6 +38,20 @@ RectTransform:
   m_AnchoredPosition: {x: -31.395, y: 44.8644}
   m_SizeDelta: {x: 37.2101, y: 10.271}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &-7414223100462912179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4144384266904102300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 325f8c7f4a56c5e4cbb03288938c587e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fieldName: {fileID: 2282054369821308228}
+  fieldValue: {fileID: 1966940719631709988}
 --- !u!1 &5836086181537709785
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,8 +86,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 11.594, y: -5}
-  m_SizeDelta: {x: 23.188, y: 10}
+  m_AnchoredPosition: {x: 15.2, y: -5}
+  m_SizeDelta: {x: 44.021, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6933809331061589041
 CanvasRenderer:
@@ -129,8 +144,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3.5
-  m_fontSizeBase: 3.5
+  m_fontSize: 8
+  m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -205,8 +220,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 28.0889, y: -5}
-  m_SizeDelta: {x: 9.801, y: 10}
+  m_AnchoredPosition: {x: 43.24258, y: -5}
+  m_SizeDelta: {x: 12.0642, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2921866313123135554
 CanvasRenderer:
@@ -263,8 +278,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3.5
-  m_fontSizeBase: 3.5
+  m_fontSize: 8
+  m_fontSizeBase: 8
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
