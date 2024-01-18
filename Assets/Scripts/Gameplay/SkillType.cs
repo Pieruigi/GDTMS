@@ -8,47 +8,46 @@ namespace GDTMS
     [System.Serializable]
     public class SkillType
     {
-        static List<SkillTypeAsset> skillTypeAssets;
-
+       
         static List<SkillType> skillTypes = new List<SkillType>();
         public static IList<SkillType> SkillTypeAll
         {
-            get { return skillTypes.AsReadOnly(); }
+            get { CheckSkillTypes(); return skillTypes.AsReadOnly(); }
         }
 
-        
-        [SerializeField]
-        SkillTypeAsset asset;
-
+        string _name;
         public string Name
         {
-            get { return asset.name; }
+            get { return _name; }
         }
 
-        SkillType(SkillTypeAsset asset)
+        SkillType(string name)
         {
-            this.asset = asset;
+            _name = name;
         }
 
-        public static List<SkillTypeAsset> GetSkillTypeAssets()
+       
+        static void CheckSkillTypes()
         {
-            if (skillTypeAssets == null)
-                skillTypeAssets = new List<SkillTypeAsset>(Resources.LoadAll<SkillTypeAsset>(SkillTypeAsset.ResourceFolder));
-            return skillTypeAssets;
+            if (skillTypes.Count == 0)
+            {
+                List<SkillTypeAsset> assets = new List<SkillTypeAsset>(Resources.LoadAll<SkillTypeAsset>(SkillTypeAsset.ResourceFolder));
+                foreach (var st in assets)
+                    skillTypes.Add(new SkillType(st.name));
+            }
+            
         }
 
-        public static SkillType GetSkillType(SkillTypeAsset asset)
+        public static SkillType GetSkillType(string skillName)
         {
-            if (!skillTypes.Exists(s => s.asset == asset))
-                skillTypes.Add(new SkillType(asset));
+            // Init skill types if needed
+            CheckSkillTypes();
 
-            return skillTypes.Find(s => s.asset == asset);
+            return skillTypes.Find(s => s._name == skillName);
         }
 
-        
 
-        
-        
+
     }
 
 }

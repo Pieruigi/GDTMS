@@ -1,3 +1,4 @@
+using GDTMS.SaveSystem;
 using GDTMS.Scriptables;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,10 +14,6 @@ namespace GDTMS
 
         static List<SkillAsset> skillAssets;
 
-
-        [SerializeField]
-        SkillAsset asset;
-
         /// <summary>
         /// 
         /// </summary>
@@ -28,15 +25,30 @@ namespace GDTMS
         }
 
         [SerializeField]
+        int initialMark;
+        public int InitialMark
+        {
+            get { return initialMark; }
+        }
+
+        [SerializeField]
+        float costPerPoint;
+        public float CostPerPoint
+        {
+            get { return costPerPoint; }
+        }
+
+        [SerializeField]
         SkillType type;
         public SkillType Type
         {
             get { return type; }
         }
 
-        public string Name
+        public string longName;
+        public string LongName
         {
-            get { return asset.name; }
+            get { return longName; }
         }
 
         string shortName;
@@ -48,9 +60,23 @@ namespace GDTMS
         public Skill(SkillAsset asset, int mark)
         {
             this.mark = mark;
-            this.asset = asset;
+            initialMark = mark;
+            longName = asset.name;
             shortName = asset.ShortName;
-            type = SkillType.GetSkillType(asset.TypeAsset);
+            costPerPoint = asset.CostPerPoint;
+            type = SkillType.GetSkillType(asset.TypeAsset.name);
+        }
+
+        public Skill(SkillData saveData)
+        {
+            mark = saveData.Mark;
+            initialMark = saveData.InitialMark;
+            longName = saveData.AssetName;
+            // Load skill assets
+            SkillAsset asset = GetSkillAssets().Find(s => s.name.ToLower().Equals(longName.ToLower()));
+            costPerPoint = asset.CostPerPoint;
+            shortName = asset.ShortName;
+            type = SkillType.GetSkillType(asset.TypeAsset.name);
         }
 
         public static List<SkillAsset> GetSkillAssets()
@@ -60,21 +86,28 @@ namespace GDTMS
             return skillAssets;
         }
 
-        public int Increase(int value)
+        public void SetInitialValue(int value)
         {
-            int oldMark = mark;
-            mark = Mathf.Min(mark + value, MaxMark);
-            return mark - oldMark;
+            mark = Mathf.Min(value, MaxMark);
+            initialMark = mark;
         }
 
         public float GetDailyCost()
         {
-            return mark * asset.CostPerPoint;
+            return mark * costPerPoint;
         }
+
+        #region save system
+        public SkillData GetSaveData()
+        {
+            return new SkillData(mark, initialMark, longName);
+        }
+
+        #endregion
 
         public override string ToString()
         {
-            return $"[Skill Name:{asset.name}, Mark:{mark}, Type:{type}]";
+            return $"[Skill Name:{longName}, Mark:{mark}, Type:{type}]";
         }
     }
 

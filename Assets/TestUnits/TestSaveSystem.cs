@@ -1,3 +1,4 @@
+using GDTMS;
 using GDTMS.SaveSystem;
 using System.Collections;
 using System.Collections.Generic;
@@ -5,6 +6,9 @@ using UnityEngine;
 
 public class TestSaveSystem : MonoBehaviour
 {
+    [SerializeField]
+    WorkerManager wm = WorkerManager.Instance;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -16,5 +20,8 @@ public class TestSaveSystem : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
             SaveManager.Instance.SaveGame(0);
+
+        if (Input.GetKeyDown(KeyCode.A))
+            SaveManager.Instance.LoadGame(0);
     }
 }

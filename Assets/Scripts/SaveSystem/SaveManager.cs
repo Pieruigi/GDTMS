@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace GDTMS.SaveSystem
 {
+  
     public class SaveManager
     {
         static SaveManager instance;
@@ -28,15 +29,23 @@ namespace GDTMS.SaveSystem
 
         public void SaveGame(int slot)
         {
-            string path = GetPath(slot);
-            string json = JsonUtility.ToJson(new WorkerData(12, true));
-            Debug.Log($"Json:{json}");
-            System.IO.File.WriteAllText(path, json);
+            // Prepare data 
+            SaveRoot root = new SaveRoot();
+            root.Fill();
+            // Create json
+            string json = JsonUtility.ToJson(root);
+            Debug.Log($"Storing json:{json}");
+            // Write data
+            System.IO.File.WriteAllText(GetPath(slot), json);
         }
 
         public void LoadGame(int slot)
         {
-
+            // Read file
+            string json = System.IO.File.ReadAllText(GetPath(slot));
+            Debug.Log($"Loading json:{json}");
+            SaveRoot root = JsonUtility.FromJson<SaveRoot>(json);
+            root.Explode();
         }
     }
 

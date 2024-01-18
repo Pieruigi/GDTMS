@@ -39,7 +39,7 @@ namespace GDTMS.UI
         {
             Debug.Log("Enable UI");
             // Set worker internal list
-            workers = new List<Worker>(WorkerManager.Instance.Workers);
+            workers = new List<Worker>(WorkerManager.Instance.SearchList);
 
             // Reset current page
             currentPage = 0;
@@ -84,7 +84,7 @@ namespace GDTMS.UI
             buttonPrev.interactable = false;
             if (currentPage > 0)
                 buttonPrev.interactable = true;
-            if (currentPage < (WorkerManager.Instance.Workers.Count-1) / maxWorkerPerPage)
+            if (currentPage < (WorkerManager.Instance.SearchList.Count-1) / maxWorkerPerPage)
                 buttonNext.interactable = true;
         }
 

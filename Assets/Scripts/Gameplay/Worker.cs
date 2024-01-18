@@ -1,3 +1,4 @@
+using GDTMS.SaveSystem;
 using GDTMS.Scriptables;
 using System.Collections;
 using System.Collections.Generic;
@@ -21,18 +22,6 @@ namespace GDTMS
         }
         int surnameIndex = -1;
 
-
-        //WorkerStatus status = WorkerStatus.Available;
-        //public WorkerStatus Status
-        //{
-        //    get { return status; }
-        //}
-        bool onDuty = false;
-        public bool OnDuty
-        {
-            get { return onDuty; }
-        }
-
         [SerializeField]
         List<Skill> skills = new List<Skill>();
         public IList<Skill> Skills
@@ -40,26 +29,10 @@ namespace GDTMS
             get { return skills; }
         }
 
-        /// <summary>
-        /// Skills gained while on duty
-        /// </summary>
-        [SerializeField]
-        List<Skill> gainedSkills = new List<Skill>();
-
-        
-        /// <summary>
-        /// How long has been working for us.
-        /// Zero means you have just been employed.
-        /// </summary>
-        int daysOnDuty = 0; 
-        public int DaysOnDuty
-        {
-            get { return daysOnDuty; }
-        }
-
         public Worker(int mark)
         {
-            
+           
+
             // Set fields
             this.nameIndex = NameCollection.Instance.GetRandomNameIndex();
             this.surnameIndex = NameCollection.Instance.GetRandomSurnameIndex();
@@ -118,7 +91,10 @@ namespace GDTMS
             for(int i=0; i<prefSkills.Length; i++)
             {
                 int count = Mathf.RoundToInt(left * (prefSkills.Length == 1 ? .5f : .25f));
-                left -= prefSkills[i].Increase(count);
+                if (prefSkills[i].Mark + count > Skill.MaxMark)
+                    count = Skill.MaxMark - prefSkills[i].Mark;
+                prefSkills[i].SetInitialValue(prefSkills[i].Mark + count);
+                left -= count;
             }
 
             // Keep adding remaining points
@@ -128,13 +104,24 @@ namespace GDTMS
             while(left>0)
             {
                 Skill s = skills[Random.Range(0, others.Count)];
-                s.Increase(1);
+                s.SetInitialValue(s.Mark + 1);
                 if (s.Mark >= Skill.MaxMark)
                     others.Remove(s);
                 left--;
             }
 
             
+        }
+
+        public Worker(WorkerData data)
+        {
+            this.nameIndex = data.NameIndex;
+           
+            // Skills
+            foreach(var s in data.Skills)
+            {
+                skills.Add(new Skill(s));
+            }
         }
 
         public int GetDailyCost()
@@ -149,18 +136,19 @@ namespace GDTMS
         }
 
 
-        public void Hire()
+
+        #region save system
+        public WorkerData GetSaveData()
         {
-            onDuty = true;
-            daysOnDuty = 0;
+            // Create skill data list
+            List<SkillData> sdl = new List<SkillData>();
+            foreach (Skill skill in skills)
+                sdl.Add(skill.GetSaveData());
+
+            return new WorkerData(nameIndex, sdl);
         }
 
-        public void IncreaseDaysOnDuty()
-        {
-            daysOnDuty++;
-            // Manage on duty multiplier here
-        }
-
+        #endregion
         public override string ToString()
         {
             int mark = 0;
@@ -170,7 +158,7 @@ namespace GDTMS
                 ret += $"\n{s}";
                 mark += s.Mark;
             }
-            ret = $"[Worker - Name:{NameCollection.Instance.GetName(nameIndex)}, Surname:{NameCollection.Instance.GetSurname(surnameIndex)}, Mark:{mark}, $/H:{GetDailyCost()}, OnDuty:{OnDuty}]" + ret;
+            ret = $"[Worker - Name:{NameCollection.Instance.GetName(nameIndex)}, Surname:{NameCollection.Instance.GetSurname(surnameIndex)}, Mark:{mark}, $/H:{GetDailyCost()}]" + ret;
 
             return ret;
         }
