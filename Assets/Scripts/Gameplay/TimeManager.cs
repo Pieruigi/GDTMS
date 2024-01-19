@@ -5,39 +5,47 @@ using UnityEngine.Events;
 
 namespace GDTMS
 {
+    [System.Serializable]
     public class TimeManager : MonoBehaviour
     {
-        public static UnityAction OnDayCompleted;
+        public static UnityAction<int> OnDayCompleted;
 
         public static TimeManager Instance { get; private set; }
 
+        [SerializeField]
         int elapsedDays = 0;
         public int ElapsedDays
         {
             get { return elapsedDays; }
         }
 
-        int payDay = 20;
-
         float dayInSec = 1;
 
         int speedIndex = 1;
+        int speedIndexDefault = 1;
 
         float[] speeds = new float[] { .5f, 1f, 2f, 4f, 16f };
 
         bool playing = false;
         float elapsed = 0f;
+        bool pauseOnDayCompleted = false;
 
         private void Awake()
         {
             if (!Instance)
             {
                 Instance = this;
+                speedIndex = speedIndexDefault;
             }
             else
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void Start()
+        {
+            PauseTime();
         }
 
         private void Update()
@@ -51,17 +59,23 @@ namespace GDTMS
                 elapsedDays++;
                 elapsed = elapsed % dayInSec;
 
-                OnDayCompleted?.Invoke();
+                if (pauseOnDayCompleted)
+                {
+                    pauseOnDayCompleted = false;
+                    playing = false;
+                }
+
+                OnDayCompleted?.Invoke(elapsedDays);
 
             }
         }
 
-        public void PlayTime()
+        public void ResumeTime()
         {
             playing = true;
         }
 
-        public void StopTime()
+        public void PauseTime()
         {
             playing = false;
         }
@@ -78,9 +92,11 @@ namespace GDTMS
                 speedIndex--;
         }
 
-        public bool IsPayDay()
+        public void MoveByOneDay()
         {
-            return elapsedDays % payDay == payDay;
+            pauseOnDayCompleted = true;
+            playing = true;
+            speedIndex = speedIndexDefault;
         }
 
 

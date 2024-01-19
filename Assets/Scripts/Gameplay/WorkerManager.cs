@@ -8,6 +8,8 @@ namespace GDTMS
     [System.Serializable]
     public class WorkerManager
     {
+        
+
         static WorkerManager instance;
         public static WorkerManager Instance
         {
@@ -27,44 +29,41 @@ namespace GDTMS
         [SerializeField]
         //List<Worker> onDutyList = new List<Worker>();
         List<WorkerAgreement> onDutyList = new List<WorkerAgreement>();
-
-
+        public IList<WorkerAgreement> OnDutyList
+        {
+            get { return onDutyList.AsReadOnly(); }
+        }
+    
         WorkerManager()
         {
-            TimeManager.OnDayCompleted += HandleOnDayCompleted;
-        }
-
-       
-
-        void HandleOnDayCompleted()
-        {
            
-            // Check if is pay day
-            if (TimeManager.Instance.IsPayDay())
-            {
-                // Get money from the bank account
-                FinanceManager.Instance.Withdraw(ComputeSalaryAll());
-            }
         }
 
-        int ComputeSalaryAll()
-        {
-            int ret = 0;
-            foreach(WorkerAgreement wa in onDutyList)
-            {
-                ret += wa.Worker.GetDailyCost();// * w.DaysOnDuty;
-            }
-            return ret;
-        }
+        
 
         /// <summary>
         /// Create a whole bunch of workers
         /// </summary>
-        public void CreateWorkers(int numOfWorkers)
+        public void CreateOrUpdateSearchList(int searchListSize)
         {
+            int missing = searchListSize;
 
-            int leftWorkers = numOfWorkers;
+            // If the search list already exists we only need to update it
+            if (searchList.Count > 0)
+            {
+                // We remove all the people already working for us
+                searchList.RemoveAll(w => IsOnDuty(w));
+                // Keep going with the normal update
+                float updateRatio = .3f;
+                int toUpdate = Mathf.RoundToInt(searchList.Count * updateRatio);
+                for (int i = 0; i < toUpdate; i++)
+                    searchList.RemoveAt(Random.Range(0, searchList.Count));
 
+                missing -= searchList.Count;
+            }
+            
+
+            // Fill the search list
             int skillCount = Skill.GetSkillAssets().Count;
             int maxPoints = Skill.MaxMark * skillCount + 1; // +1 to adjust for Random.Range() 
             int[] steps = new int[4];
@@ -72,15 +71,15 @@ namespace GDTMS
                 steps[i] = Skill.MaxMark * (i + 1);
             
 
-            int[] marks = new int[numOfWorkers];
-            for (int i = 0; i < numOfWorkers; i++)
+            int[] marks = new int[missing];
+            for (int i = 0; i < missing; i++)
             {
                 int mark = Mathf.RoundToInt(Random.Range(steps[0], steps[1]));
-                if (i > Mathf.RoundToInt(numOfWorkers * .8f)) // High mark
+                if (i > Mathf.RoundToInt(missing * .8f)) // High mark
                 {
                     mark = Mathf.RoundToInt(Random.Range(steps[2], steps[3]));
                 }
-                else if (i > Mathf.RoundToInt(numOfWorkers * .5f)) // Mid mark
+                else if (i > Mathf.RoundToInt(missing * .5f)) // Mid mark
                 {
                     mark = Mathf.RoundToInt(Random.Range(steps[1], steps[2]));
                 }
