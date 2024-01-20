@@ -7,7 +7,7 @@ using UnityEngine;
 public class TestSaveSystem : MonoBehaviour
 {
     [SerializeField]
-    WorkerManager wm = WorkerManager.Instance;
+    WorkerSearchManager wm = WorkerSearchManager.Instance;
 
     // Start is called before the first frame update
     void Start()

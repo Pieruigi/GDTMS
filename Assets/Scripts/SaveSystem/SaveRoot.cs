@@ -8,8 +8,8 @@ namespace GDTMS.SaveSystem
     public class SaveRoot
     {
         [SerializeField]
-        WorkerManagerData workerManagerData;
-        public WorkerManagerData WorkerManagerData
+        WorkerCollectionData workerManagerData;
+        public WorkerCollectionData WorkerManagerData
         {
             get { return workerManagerData; }
         }
@@ -21,12 +21,12 @@ namespace GDTMS.SaveSystem
 
         public void Fill()
         {
-            workerManagerData = WorkerManager.Instance.GetSaveData();
+            workerManagerData = WorkerSaveUtility.GetSaveData();
         }
 
         public void Explode()
         {
-            WorkerManager.InitWorkerManager(workerManagerData);
+            WorkerSaveUtility.Init(workerManagerData);
         }
     }
 

@@ -46,23 +46,9 @@ namespace GDTMS
             foreach (var s in skillAssets)
                 skills.Add(new Skill(s, 1));
 
-            Debug.Log($"Skill assets count:{skillAssets.Count}");
-            //List<SkillTypeAsset> skillTypeAssets = SkillType.GetSkillTypeAssets();
-            //Debug.Log($"Skill type assets count:{skillTypeAssets.Count}");
             // We want to choose 1 or at most 2 preferred skills giving them most of the worker mark
             Skill[] prefSkills = new Skill[Random.Range(1, 3)];
-            Debug.Log($"Preferred skill count:{prefSkills.Length}");
             prefSkills[0] = skills[Random.Range(0, skills.Count)];
-
-            int countt = 0;
-            foreach(var s in skills)
-            {
-                if(s.Type == prefSkills[0].Type)
-                    Debug.Log($"Preferred skill 1 type found:{countt}");
-                if (s == prefSkills[0])
-                    Debug.Log($"Preferred skill 1 found:{countt}");
-                countt++;
-            }
             
 
             if(prefSkills.Length > 1)
@@ -73,13 +59,11 @@ namespace GDTMS
                 {
                     // The same group of the first
                     sl = skills.FindAll(s => s.Type == prefSkills[0].Type && s != prefSkills[0]);
-                    Debug.Log($"SL_1.Count:{sl.Count}");
                 }
                 else
                 {
                     // A different group
                     sl = skills.FindAll(s => s != prefSkills[0]);
-                    Debug.Log($"SL_2.Count:{sl.Count}");
                 }
 
                 prefSkills[1] = sl[Random.Range(0, sl.Count)];

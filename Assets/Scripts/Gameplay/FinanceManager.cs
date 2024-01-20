@@ -5,14 +5,11 @@ using UnityEngine;
 namespace GDTMS
 {
     [System.Serializable]
-    public class FinanceManager
+    public class FinanceManager: MonoBehaviour
     {
-        static FinanceManager instance;
-        public static FinanceManager Instance
-        {
-            get { if (instance == null) instance = new FinanceManager(); return instance; }
-        }
+        public static FinanceManager Instance { get; private set; }
 
+      
         [SerializeField]
         int balance = 1000;
 
@@ -22,10 +19,22 @@ namespace GDTMS
         [SerializeField]
         int creditLimit = -1000;
 
-        FinanceManager() 
+        private void Awake()
         {
-            Debug.Log("Finance manager...");
-            TimeManager.OnDayCompleted += HandleOnDayCompleted;
+            if (!Instance)
+            {
+                Instance = this;
+                
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
+
+        private void Start()
+        {
+            TimeManager.Instance.OnDayCompleted += HandleOnDayCompleted;
         }
 
         void HandleOnDayCompleted(int completedDay)
@@ -47,7 +56,7 @@ namespace GDTMS
         int ComputeActualSalaryAll(int day)
         {
             int ret = 0;
-            foreach (WorkerAgreement wa in WorkerManager.Instance.OnDutyList)
+            foreach (WorkerAgreement wa in HRManager.Instance.Agreements)
             {
                 ret += wa.GetActualMonthlySalary(day);
             }

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace GDTMS.SaveSystem
 {
     [System.Serializable]
-    public class WorkerManagerData
+    public class WorkerCollectionData
     {
         /// <summary>
         /// The whole list of workers
@@ -31,7 +31,7 @@ namespace GDTMS.SaveSystem
             get { return onDutyIds.AsReadOnly(); }
         }
 
-        public WorkerManagerData(List<WorkerData> all, List<int> searchIds, List<WorkerAgreementData> onDutyIds)
+        public WorkerCollectionData(List<WorkerData> all, List<int> searchIds, List<WorkerAgreementData> onDutyIds)
         {
             workerAll = all;
             this.searchIds = searchIds;

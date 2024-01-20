@@ -19,7 +19,7 @@ namespace GDTMS.UI
         [SerializeField]
         int maxWorkerPerPage = 24;
 
-        List<Worker> workers;
+        List<Worker> workers = new List<Worker>();
 
         int currentPage = 0;
 
@@ -28,18 +28,23 @@ namespace GDTMS.UI
             // Init buttons
             buttonPrev.onClick.AddListener(() => { currentPage--; ShowCurrentPage(); });
             buttonNext.onClick.AddListener(() => { currentPage++; ShowCurrentPage(); });
+
+            gameObject.SetActive(false);
         }
 
         private void Start()
         {
-            gameObject.SetActive(false);
+            
         }
 
         private void OnEnable()
         {
             Debug.Log("Enable UI");
             // Set worker internal list
-            workers = new List<Worker>(WorkerManager.Instance.SearchList);
+            //if (!WorkerSearchManager.Instance)
+            //    return;
+
+            workers = new List<Worker>(WorkerSearchManager.Instance.SearchList);
 
             // Reset current page
             currentPage = 0;
@@ -51,6 +56,9 @@ namespace GDTMS.UI
 
         private void OnDisable()
         {
+            //if (!WorkerSearchManager.Instance)
+            //    return;
+
             // Release workers
             ClearWorkerUIAll();
 
@@ -84,7 +92,7 @@ namespace GDTMS.UI
             buttonPrev.interactable = false;
             if (currentPage > 0)
                 buttonPrev.interactable = true;
-            if (currentPage < (WorkerManager.Instance.SearchList.Count-1) / maxWorkerPerPage)
+            if (currentPage < (WorkerSearchManager.Instance.SearchList.Count-1) / maxWorkerPerPage)
                 buttonNext.interactable = true;
         }
 

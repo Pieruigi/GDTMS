@@ -8,7 +8,7 @@ namespace GDTMS
     [System.Serializable]
     public class TimeManager : MonoBehaviour
     {
-        public static UnityAction<int> OnDayCompleted;
+        public UnityAction<int> OnDayCompleted;
 
         public static TimeManager Instance { get; private set; }
 
@@ -70,6 +70,8 @@ namespace GDTMS
             }
         }
 
+      
+
         public void ResumeTime()
         {
             playing = true;
@@ -79,6 +81,7 @@ namespace GDTMS
         {
             playing = false;
         }
+               
 
         public void IncreaseSpeed()
         {

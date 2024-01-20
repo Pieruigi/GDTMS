@@ -54,7 +54,7 @@ namespace GDTMS.UI
 
         public void Hire()
         {
-            WorkerManager.Instance.Hire(worker);
+            HRManager.Instance.Hire(worker);
         }
     }
 

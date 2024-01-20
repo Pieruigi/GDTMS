@@ -30,12 +30,14 @@ namespace GDTMS.UI
 
         private void OnEnable()
         {
-            TimeManager.OnDayCompleted += HandleOnDayCompleted;
+            if(TimeManager.Instance)
+                TimeManager.Instance.OnDayCompleted += HandleOnDayCompleted;
         }
 
         private void OnDisable()
         {
-            TimeManager.OnDayCompleted -= HandleOnDayCompleted;
+            if(TimeManager.Instance)
+                TimeManager.Instance.OnDayCompleted -= HandleOnDayCompleted;
         }
 
         void HandleOnDayCompleted(int day)
