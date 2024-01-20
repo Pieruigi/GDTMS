@@ -49,24 +49,24 @@ public class AssetBuilder
         Selection.activeObject = asset;
     }
 
-    //[MenuItem("Assets/Create/Scriptables/SeniorityAsset")]
-    //public static void CreateSeniorityAsset()
-    //{
-    //    SeniorityAsset asset = ScriptableObject.CreateInstance<SeniorityAsset>();
+    [MenuItem("Assets/Create/Scriptables/WorkstationAsset")]
+    public static void CreateWorkstationAsset()
+    {
+        WorkstationAsset asset = ScriptableObject.CreateInstance<WorkstationAsset>();
 
-    //    string name = "Seniority.asset";
+        string name = "Workstation.asset";
 
-    //    string folder = System.IO.Path.Combine("Assets/Resources", SeniorityAsset.ResourceFolder);
+        string folder = System.IO.Path.Combine("Assets/Resources", WorkstationAsset.ResourceFolder);
 
-    //    if (!System.IO.Directory.Exists(folder))
-    //        System.IO.Directory.CreateDirectory(folder);
+        if (!System.IO.Directory.Exists(folder))
+            System.IO.Directory.CreateDirectory(folder);
 
-    //    AssetDatabase.CreateAsset(asset, System.IO.Path.Combine(folder, name));
+        AssetDatabase.CreateAsset(asset, System.IO.Path.Combine(folder, name));
 
-    //    AssetDatabase.SaveAssets();
+        AssetDatabase.SaveAssets();
 
-    //    EditorUtility.FocusProjectWindow();
+        EditorUtility.FocusProjectWindow();
 
-    //    Selection.activeObject = asset;
-    //}
+        Selection.activeObject = asset;
+    }
 }

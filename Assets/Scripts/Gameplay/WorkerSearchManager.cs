@@ -8,7 +8,7 @@ namespace GDTMS
     [System.Serializable]
     public class WorkerSearchManager: MonoBehaviour
     {
-        public const int SearchDay = 20;
+        public const int SearchDay = 60;
 
         public static WorkerSearchManager Instance { get; private set; }
 
@@ -16,7 +16,7 @@ namespace GDTMS
         /// <summary>
         /// Available workers
         /// </summary>
-        [SerializeField]
+        //[SerializeField]
         List<Worker> searchList = new List<Worker>();
         public IList<Worker> SearchList
         {
