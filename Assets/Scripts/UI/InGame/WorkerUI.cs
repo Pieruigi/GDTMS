@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GDTMS.UI
 {
@@ -11,24 +12,14 @@ namespace GDTMS.UI
         [SerializeField]
         TMP_Text fieldName;
 
-        //[SerializeField]
-        //TMP_Text fieldStatus;
-
-        //[SerializeField]
-        //Color availableColor;
-
-        //[SerializeField]
-        //Color unavailableColor;
-
-        //[SerializeField]
-        //Color ownedColor;
-
         [SerializeField]
         GameObject skillGroupPrefab; 
 
         [SerializeField]
         Transform skillGroupContent;
 
+        [SerializeField]
+        Button buttonHire;
 
         Worker worker;
 
@@ -50,6 +41,10 @@ namespace GDTMS.UI
                 
                 sg.GetComponent<SkillGroupUI>().Init(new List<Skill>(worker.Skills.Where(s => s.Type == st)));
             }
+
+            // Init button
+            if (HRManager.Instance.IsOnDuty(worker))
+                buttonHire.interactable = false;
         }
 
         public void Hire()

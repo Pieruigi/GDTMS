@@ -7,7 +7,7 @@ namespace GDTMS
     [System.Serializable]
     public class WorkerAgreement
     {
-        public const int PayDay = 20;
+       
 
       
         [SerializeField]
@@ -30,13 +30,6 @@ namespace GDTMS
             this.startingDay = startingDay;
         }
 
-        public int GetActualMonthlySalary(int day)
-        {
-            int diff = day - StartingDay;
-            return worker.GetDailyCost() * (diff >= PayDay ? PayDay : diff);
-        }
-
-       
     }
 
 }

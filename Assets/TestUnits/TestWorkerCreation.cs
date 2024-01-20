@@ -12,9 +12,9 @@ public class TestWorkerCreation : MonoBehaviour
     void Update()
     {
         //Debug.Log(FinanceManager.Instance);
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            WorkerSearchManager.Instance.CreateOrUpdateSearchList(99);
-        }
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    WorkerSearchManager.Instance.CreateOrUpdateSearchList(99);
+        //}
     }
 }

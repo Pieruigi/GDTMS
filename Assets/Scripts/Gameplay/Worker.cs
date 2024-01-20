@@ -37,8 +37,6 @@ namespace GDTMS
             this.nameIndex = NameCollection.Instance.GetRandomNameIndex();
             this.surnameIndex = NameCollection.Instance.GetRandomSurnameIndex();
 
-            
-            Debug.Log($"Worker total mark:{mark}");
 
             // Init skills
             List<SkillAsset> skillAssets = Skill.GetSkillAssets();

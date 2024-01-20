@@ -8,15 +8,16 @@ namespace GDTMS
     [System.Serializable]
     public class TimeManager : MonoBehaviour
     {
+        public UnityAction<int> OnDayStarted;
         public UnityAction<int> OnDayCompleted;
 
         public static TimeManager Instance { get; private set; }
 
-        [SerializeField]
-        int elapsedDays = 0;
-        public int ElapsedDays
+        //[SerializeField]
+        int currentDay = 1;
+        public int CurrentDay
         {
-            get { return elapsedDays; }
+            get { return currentDay; }
         }
 
         float dayInSec = 1;
@@ -28,7 +29,7 @@ namespace GDTMS
 
         bool playing = false;
         float elapsed = 0f;
-        bool pauseOnDayCompleted = false;
+        int pauseOnDay = 0;
 
         private void Awake()
         {
@@ -45,6 +46,7 @@ namespace GDTMS
 
         private void Start()
         {
+            
             PauseTime();
         }
 
@@ -53,20 +55,23 @@ namespace GDTMS
             if (!playing)
                 return;
 
+            if(elapsed == 0)
+            {
+                if (pauseOnDay == currentDay)
+                {
+                    pauseOnDay = 0;
+                    playing = false;
+                }
+                OnDayStarted?.Invoke(currentDay);
+            }
+           
             elapsed += Time.deltaTime * speeds[speedIndex];
             if(elapsed > dayInSec)
             {
-                elapsedDays++;
-                elapsed = elapsed % dayInSec;
+                OnDayCompleted?.Invoke(currentDay);
 
-                if (pauseOnDayCompleted)
-                {
-                    pauseOnDayCompleted = false;
-                    playing = false;
-                }
-
-                OnDayCompleted?.Invoke(elapsedDays);
-
+                currentDay++;
+                elapsed = 0;
             }
         }
 
@@ -97,9 +102,9 @@ namespace GDTMS
 
         public void MoveByOneDay()
         {
-            pauseOnDayCompleted = true;
             playing = true;
             speedIndex = speedIndexDefault;
+            pauseOnDay = currentDay + 1;
         }
 
 

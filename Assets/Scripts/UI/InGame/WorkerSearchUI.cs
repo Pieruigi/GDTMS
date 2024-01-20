@@ -19,6 +19,9 @@ namespace GDTMS.UI
         [SerializeField]
         int maxWorkerPerPage = 24;
 
+        [SerializeField]
+        bool forceOnDutyOnly = false;
+
         List<Worker> workers = new List<Worker>();
 
         int currentPage = 0;
@@ -43,8 +46,18 @@ namespace GDTMS.UI
             // Set worker internal list
             //if (!WorkerSearchManager.Instance)
             //    return;
-
-            workers = new List<Worker>(WorkerSearchManager.Instance.SearchList);
+            if (!forceOnDutyOnly)
+            {
+                workers = new List<Worker>(WorkerSearchManager.Instance.SearchList);
+            }
+            else
+            {
+                workers = new List<Worker>();
+                foreach (WorkerAgreement wa in HRManager.Instance.Agreements)
+                    workers.Add(wa.Worker);
+            }
+                
+                
 
             // Reset current page
             currentPage = 0;
@@ -92,7 +105,7 @@ namespace GDTMS.UI
             buttonPrev.interactable = false;
             if (currentPage > 0)
                 buttonPrev.interactable = true;
-            if (currentPage < (WorkerSearchManager.Instance.SearchList.Count-1) / maxWorkerPerPage)
+            if (currentPage < (workers.Count-1) / maxWorkerPerPage)
                 buttonNext.interactable = true;
         }
 

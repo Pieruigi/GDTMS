@@ -35,7 +35,7 @@ namespace GDTMS
             // Remove the worker from the search list
             //workers.Remove(worker);
             // Add the new worker to the onDuty list
-            agreements.Add(new WorkerAgreement(worker, TimeManager.Instance.ElapsedDays));
+            agreements.Add(new WorkerAgreement(worker, TimeManager.Instance.CurrentDay));
 
         }
 

@@ -13,7 +13,7 @@ namespace GDTMS.UI
 
         private void Awake()
         {
-            fieldCurrentDay.text = 0.ToString();
+            fieldCurrentDay.text = 1.ToString();
         }
 
         // Start is called before the first frame update
@@ -31,16 +31,16 @@ namespace GDTMS.UI
         private void OnEnable()
         {
             if(TimeManager.Instance)
-                TimeManager.Instance.OnDayCompleted += HandleOnDayCompleted;
+                TimeManager.Instance.OnDayStarted += HandleOnDayStarted;
         }
 
         private void OnDisable()
         {
             if(TimeManager.Instance)
-                TimeManager.Instance.OnDayCompleted -= HandleOnDayCompleted;
+                TimeManager.Instance.OnDayStarted -= HandleOnDayStarted;
         }
 
-        void HandleOnDayCompleted(int day)
+        void HandleOnDayStarted(int day)
         {
             fieldCurrentDay.text = day.ToString();
         }

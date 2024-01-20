@@ -8,6 +8,8 @@ namespace GDTMS
     [System.Serializable]
     public class WorkerSearchManager: MonoBehaviour
     {
+        public const int SearchDay = 20;
+
         public static WorkerSearchManager Instance { get; private set; }
 
       
@@ -21,6 +23,7 @@ namespace GDTMS
             get { return searchList.AsReadOnly(); }
         }
 
+        int listSize = 48;
 
         private void Awake()
         {
@@ -34,14 +37,24 @@ namespace GDTMS
             }
         }
 
+        private void Start()
+        {
+            CreateOrUpdateSearchList();
+            TimeManager.Instance.OnDayCompleted += HandleOnDayCompleted;
+        }
 
+        void HandleOnDayCompleted(int day)
+        {
+            if (day % SearchDay == 0)
+                CreateOrUpdateSearchList();
+        } 
 
         /// <summary>
         /// Create a whole bunch of workers
         /// </summary>
-        public void CreateOrUpdateSearchList(int searchListSize)
+        void CreateOrUpdateSearchList()
         {
-            int missing = searchListSize;
+            int missing = listSize;
 
             // If the search list already exists we only need to update it
             if (searchList.Count > 0)
