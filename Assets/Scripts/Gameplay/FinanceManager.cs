@@ -72,16 +72,11 @@ namespace GDTMS
         {
             return day % PayDay == 0;
         }
+                
 
         
 
-        void Withdraw(int amount)
-        {
-            balance -= amount;
-            if (balance < creditLimit)
-                GameOver();
-                
-        }
+        
 
         int GetDailyCostAll()
         {
@@ -99,7 +94,21 @@ namespace GDTMS
             Debug.Log("Bankrupt!!!");
         }
 
-       
+        public void Withdraw(int amount)
+        {
+            balance -= amount;
+            if (balance < creditLimit)
+                GameOver();
+
+        }
+
+        public bool FoundsAreAvailable(int amount)
+        {
+            if (balance - amount < creditLimit)
+                return false;
+            else
+                return true;
+        }
     }
 
 }

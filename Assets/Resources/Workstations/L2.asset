@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: L2
   m_EditorClassIdentifier: 
   price: 300
-  workSpeedMultiplier: 1
+  taskSpeedMultiplier: 1
   affidability: 0

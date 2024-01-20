@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: H1
   m_EditorClassIdentifier: 
   price: 1200
-  workSpeedMultiplier: 1
+  taskSpeedMultiplier: 1
   affidability: 10

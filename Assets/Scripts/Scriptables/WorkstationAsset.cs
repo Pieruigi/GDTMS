@@ -10,14 +10,26 @@ namespace GDTMS.Scriptables
 
         [SerializeField]
         int price;
+        public int Price
+        {
+            get { return price; }
+        }
 
         [SerializeField]
         [Range(.75f, 1.5f)]
-        float workSpeedMultiplier;
+        float taskSpeedMultiplier;
+        public float TaskSpeedMultiplayer
+        {
+            get { return taskSpeedMultiplier; }
+        }
 
         [SerializeField]
         [Range(1,10)]
         int affidability;
+        public int Affidability
+        {
+            get { return affidability; }
+        }
     }
 
 }
