@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace GDTMS
 {
-    public class HRManager : MonoBehaviour
+    public class WorkerManager : MonoBehaviour
     {
-        public static HRManager Instance { get; private set; }
+        public static WorkerManager Instance { get; private set; }
 
         [SerializeField]
         List<WorkerAgreement> agreements = new List<WorkerAgreement>();

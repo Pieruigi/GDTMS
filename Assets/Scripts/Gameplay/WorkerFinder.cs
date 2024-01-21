@@ -6,11 +6,11 @@ using UnityEngine;
 namespace GDTMS
 {
     [System.Serializable]
-    public class WorkerSearchManager: MonoBehaviour
+    public class WorkerFinder: MonoBehaviour
     {
         public const int SearchDay = 60;
 
-        public static WorkerSearchManager Instance { get; private set; }
+        public static WorkerFinder Instance { get; private set; }
 
       
         /// <summary>
@@ -60,7 +60,7 @@ namespace GDTMS
             if (searchList.Count > 0)
             {
                 // We remove all the people already working for us
-                searchList.RemoveAll(w => HRManager.Instance.IsOnDuty(w));
+                searchList.RemoveAll(w => WorkerManager.Instance.IsOnDuty(w));
                 // Keep going with the normal update
                 float updateRatio = .3f;
                 int toUpdate = Mathf.RoundToInt(searchList.Count * updateRatio);

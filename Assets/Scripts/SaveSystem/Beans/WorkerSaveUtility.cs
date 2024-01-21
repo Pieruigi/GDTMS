@@ -18,20 +18,20 @@ namespace GDTMS.SaveSystem
             List<int> searchIds = new List<int>();
 
             // Store all workers from the search list and fill the search id list 
-            for (int i = 0; i < WorkerSearchManager.Instance.SearchList.Count; i++)
+            for (int i = 0; i < WorkerFinder.Instance.SearchList.Count; i++)
             {
-                all.Add(WorkerSearchManager.Instance.SearchList[i].GetSaveData());
+                all.Add(WorkerFinder.Instance.SearchList[i].GetSaveData());
                 searchIds.Add(i);
             }
 
             // Fill the on duty list and add the remaining workers on the all list
-            for (int i = 0; i < HRManager.Instance.Agreements.Count; i++)
+            for (int i = 0; i < WorkerManager.Instance.Agreements.Count; i++)
             {
-                WorkerAgreement wa = HRManager.Instance.Agreements[i];
-                if (WorkerSearchManager.Instance.SearchList.Contains(wa.Worker))
+                WorkerAgreement wa = WorkerManager.Instance.Agreements[i];
+                if (WorkerFinder.Instance.SearchList.Contains(wa.Worker))
                 {
                     // The worker is also on the search list ( this means it has not been uploaded yet )
-                    onDutyIds.Add(new WorkerAgreementData(WorkerSearchManager.Instance.SearchList.IndexOf(wa.Worker), wa.StartingDay));
+                    onDutyIds.Add(new WorkerAgreementData(WorkerFinder.Instance.SearchList.IndexOf(wa.Worker), wa.StartingDay));
                 }
                 else
                 {
@@ -61,7 +61,7 @@ namespace GDTMS.SaveSystem
             for (int i = 0; i < data.SearchIds.Count; i++)
             {
                 // Add a new worker to the search list
-                WorkerSearchManager.Instance.SearchList.Add(new Worker(data.WorkerAll[data.SearchIds[i]]));
+                WorkerFinder.Instance.SearchList.Add(new Worker(data.WorkerAll[data.SearchIds[i]]));
             }
             // Check the on duty list
             for (int i = 0; i < data.OnDutyIds.Count; i++)
@@ -70,12 +70,12 @@ namespace GDTMS.SaveSystem
                 if (data.SearchIds.Contains(data.OnDutyIds[i].WorkerId))
                 {
                     // Worker already exists
-                    HRManager.Instance.Agreements.Add(new WorkerAgreement(WorkerSearchManager.Instance.SearchList[data.OnDutyIds[i].WorkerId], data.OnDutyIds[i].StartingDay));
+                    WorkerManager.Instance.Agreements.Add(new WorkerAgreement(WorkerFinder.Instance.SearchList[data.OnDutyIds[i].WorkerId], data.OnDutyIds[i].StartingDay));
                 }
                 else
                 {
                     // Add a new worker in the on duty list
-                    HRManager.Instance.Agreements.Add(new WorkerAgreement(new Worker(data.WorkerAll[data.OnDutyIds[i].WorkerId]), data.OnDutyIds[i].StartingDay));
+                    WorkerManager.Instance.Agreements.Add(new WorkerAgreement(new Worker(data.WorkerAll[data.OnDutyIds[i].WorkerId]), data.OnDutyIds[i].StartingDay));
                 }
             }
         }

@@ -4,18 +4,25 @@ using UnityEngine;
 
 namespace GDTMS
 {
-    public class Project : MonoBehaviour
+    [System.Serializable]
+    public class Project
     {
-        // Start is called before the first frame update
-        void Start()
-        {
+        [SerializeField]
+        List<Task> tasks;
+      
+        [SerializeField]
+        int compensation;
 
+        
+        public void Progress()
+        {
+            foreach (Task t in tasks)
+                t.Progress(); 
         }
 
-        // Update is called once per frame
-        void Update()
+        public bool IsCompleted()
         {
-
+            return !tasks.Exists(t=>!t.Completed());
         }
     }
 

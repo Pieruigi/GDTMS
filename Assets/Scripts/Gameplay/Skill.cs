@@ -12,6 +12,10 @@ namespace GDTMS
         public const int MaxMark = 99;
         public const int MinMark = 1;
 
+        public const float SkillMaxMul = 2f;
+        public const float SkillMinMul = .5f;
+        
+
         static List<SkillAsset> skillAssets;
 
         /// <summary>

@@ -48,12 +48,12 @@ namespace GDTMS.UI
             //    return;
             if (!forceOnDutyOnly)
             {
-                workers = new List<Worker>(WorkerSearchManager.Instance.SearchList);
+                workers = new List<Worker>(WorkerFinder.Instance.SearchList);
             }
             else
             {
                 workers = new List<Worker>();
-                foreach (WorkerAgreement wa in HRManager.Instance.Agreements)
+                foreach (WorkerAgreement wa in WorkerManager.Instance.Agreements)
                     workers.Add(wa.Worker);
             }
                 

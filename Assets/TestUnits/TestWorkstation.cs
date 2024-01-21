@@ -28,9 +28,9 @@ public class TestWorkstation : MonoBehaviour
             Debug.Log($"Buying workstation {asset.name}");
             if (FinanceManager.Instance.FoundsAreAvailable(asset.Price))
                 WorkstationManager.Instance.BuyWorkstation(asset);
-            if(HRManager.Instance.Agreements.Count > 0)
+            if(WorkerManager.Instance.Agreements.Count > 0)
             {
-                WorkerAgreement wa = HRManager.Instance.Agreements[Random.Range(0, HRManager.Instance.Agreements.Count)];
+                WorkerAgreement wa = WorkerManager.Instance.Agreements[Random.Range(0, WorkerManager.Instance.Agreements.Count)];
                 
                 Workstation w = WorkstationManager.Instance.Workstations[WorkstationManager.Instance.Workstations.Count - 1];
                 Debug.Log($"Assign workstation {w.Name} to {wa.Worker.Name}");

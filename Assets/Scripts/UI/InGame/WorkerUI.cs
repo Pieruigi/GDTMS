@@ -43,13 +43,13 @@ namespace GDTMS.UI
             }
 
             // Init button
-            if (HRManager.Instance.IsOnDuty(worker))
+            if (WorkerManager.Instance.IsOnDuty(worker))
                 buttonHire.interactable = false;
         }
 
         public void Hire()
         {
-            HRManager.Instance.Hire(worker);
+            WorkerManager.Instance.Hire(worker);
         }
     }
 

@@ -81,7 +81,7 @@ namespace GDTMS
         int GetDailyCostAll()
         {
             int ret = 0;
-            foreach(var wa in HRManager.Instance.Agreements)
+            foreach(var wa in WorkerManager.Instance.Agreements)
             {
                 Debug.Log($"GetDailyCost():{wa.Worker.GetDailyCost()}");
                 ret += wa.Worker.GetDailyCost();
