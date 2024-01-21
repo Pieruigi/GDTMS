@@ -12,9 +12,6 @@ namespace GDTMS
         public const int MaxMark = 99;
         public const int MinMark = 1;
 
-        public const float SkillMaxMul = 2f;
-        public const float SkillMinMul = .5f;
-        
 
         static List<SkillAsset> skillAssets;
 
@@ -49,10 +46,10 @@ namespace GDTMS
             get { return type; }
         }
 
-        public string longName;
-        public string LongName
+        string _name;
+        public string Name
         {
-            get { return longName; }
+            get { return _name; }
         }
 
         string shortName;
@@ -65,7 +62,7 @@ namespace GDTMS
         {
             this.mark = mark;
             initialMark = mark;
-            longName = asset.name;
+            _name = asset.name;
             shortName = asset.ShortName;
             costPerPoint = asset.CostPerPoint;
             type = SkillType.GetSkillType(asset.TypeAsset.name);
@@ -75,9 +72,9 @@ namespace GDTMS
         {
             mark = saveData.Mark;
             initialMark = saveData.InitialMark;
-            longName = saveData.AssetName;
+            _name = saveData.AssetName;
             // Load skill assets
-            SkillAsset asset = GetSkillAssets().Find(s => s.name.ToLower().Equals(longName.ToLower()));
+            SkillAsset asset = GetSkillAssets().Find(s => s.name.ToLower().Equals(_name.ToLower()));
             costPerPoint = asset.CostPerPoint;
             shortName = asset.ShortName;
             type = SkillType.GetSkillType(asset.TypeAsset.name);
@@ -101,17 +98,24 @@ namespace GDTMS
             return mark * costPerPoint;
         }
 
+        public float GetSpeedMultiplier()
+        {
+            float ret = 1f;
+            float skillSpeed = .5f * (mark - MinMark) / (MaxMark - MinMark);
+            return ret;
+        }
+
         #region save system
         public SkillData GetSaveData()
         {
-            return new SkillData(mark, initialMark, longName);
+            return new SkillData(mark, initialMark, _name);
         }
 
         #endregion
 
         public override string ToString()
         {
-            return $"[Skill Name:{longName}, Mark:{mark}, Type:{type}]";
+            return $"[Skill Name:{_name}, Mark:{mark}, Type:{type}]";
         }
     }
 

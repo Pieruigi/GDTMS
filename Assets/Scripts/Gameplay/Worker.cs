@@ -117,7 +117,10 @@ namespace GDTMS
             return price * 8;
         }
 
-
+        public Skill GetSkill(string skillName)
+        {
+            return skills.Find(s => s.Name.ToLower().Equals(skillName.ToLower()));
+        }
 
         #region save system
         public WorkerData GetSaveData()

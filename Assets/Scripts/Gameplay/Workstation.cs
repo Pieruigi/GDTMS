@@ -17,6 +17,10 @@ namespace GDTMS
 
         [SerializeField]
         float multiplier = 1;
+        public float SpeedMultiplier
+        {
+            get { return multiplier; }
+        }
 
         [SerializeField]
         int affidability;

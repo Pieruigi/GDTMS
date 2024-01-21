@@ -42,6 +42,13 @@ namespace GDTMS
             workstation.Unassign(); // We may want to launch some event
             workstation.Assign(worker);
         }
+
+        public bool TryGetAssignedWorkstation(Worker worker, out Workstation workstation)
+        {
+            workstation = workstations.Find(w => w.User == worker);
+            return workstation != null;
+            
+        }
     }
 
 }
