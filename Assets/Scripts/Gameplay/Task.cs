@@ -88,6 +88,16 @@ namespace GDTMS
         {
             workers.Remove(worker);
         }
+
+        public bool IsAssignedTo(Worker worker)
+        {
+            return workers.Exists(w => w == worker);
+        }
+
+        public bool IsFullOfWorkers()
+        {
+            return workers.Count == MaxWorkersPerTask;
+        }
     }
 
 }

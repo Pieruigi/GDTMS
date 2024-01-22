@@ -9,6 +9,10 @@ namespace GDTMS
         public static ProjectManager Instance { get; private set; }
 
         List<Project> projects = new List<Project>();
+        public IList<Project> Projects
+        {
+            get { return projects.AsReadOnly(); }
+        }
 
         List<Project> completedProjects = new List<Project>();
 
@@ -47,9 +51,32 @@ namespace GDTMS
         {
             projects.Remove(project);
         }
+                
+        public void Assign(Project project, Worker worker, Task task)
+        {
+            if (!projects.Contains(project))
+                return;
+            if (project.TaskIsFullOfWorkers(task))
+                return;
+            if (task.IsAssignedTo(worker))
+                return;
+            task.Assign(worker);
+        }
 
-        
+        public bool IsAssignedAnyTask(Project project, Worker worker)
+        {
+            return project.IsAssignedTo(worker); 
+        }
 
+        public bool IsAssignedAnyProject(Worker worker)
+        {
+            foreach(var project in projects)
+            {
+                if (IsAssignedAnyTask(project, worker))
+                    return true;
+            }
+            return false;
+        }
     }
 
 }

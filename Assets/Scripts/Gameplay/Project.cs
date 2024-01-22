@@ -39,6 +39,16 @@ namespace GDTMS
         {
             return !tasks.Exists(t=>!t.Completed());
         }
+
+        public bool TaskIsFullOfWorkers(Task task)
+        {
+            return task.IsFullOfWorkers();
+        }
+
+        public bool IsAssignedTo(Worker worker)
+        {
+            return tasks.Exists(t => t.IsAssignedTo(worker));
+        }
     }
 
 }
