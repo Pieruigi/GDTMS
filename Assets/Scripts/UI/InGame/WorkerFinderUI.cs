@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace GDTMS.UI
 {
-    public class WorkerSearchUI : MonoBehaviour
+    public class WorkerFinderUI : MonoBehaviour
     {
         [SerializeField]
         GameObject workerPrefab;
@@ -15,6 +16,9 @@ namespace GDTMS.UI
 
         [SerializeField]
         Button buttonPrev, buttonNext;
+
+        [SerializeField]
+        TMP_Text textPageNum;
 
         [SerializeField]
         int maxWorkerPerPage = 24;
@@ -97,7 +101,7 @@ namespace GDTMS.UI
                 // Instantiate a new worker ui element
                 GameObject w = Instantiate(workerPrefab, content);
                 // Init worker ui
-                w.GetComponent<WorkerUI>().Init(workers[index]);
+                w.GetComponent<WorkerFinderItemUI>().Init(workers[index]);
             }
 
             // Update buttons
@@ -107,6 +111,9 @@ namespace GDTMS.UI
                 buttonPrev.interactable = true;
             if (currentPage < (workers.Count-1) / maxWorkerPerPage)
                 buttonNext.interactable = true;
+
+            // Update page num text
+            textPageNum.text = currentPage.ToString();
         }
 
         void ClearWorkerUIAll()

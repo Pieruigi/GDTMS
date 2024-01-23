@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: adc11478eaf567a4b93770f99362bea5, type: 3}
-  m_Name: VFX Artist
+  m_Name: 3.2D Artist
   m_EditorClassIdentifier: 
-  shortName: Net
-  costPerPoint: 0.75
-  typeAsset: {fileID: 11400000, guid: 56caaf0f2b2261840ae4a11cf1e62dfb, type: 2}
+  shortName: 2D Artist
+  costPerPoint: 0.85
+  typeAsset: {fileID: 11400000, guid: e0ce1cb0c9c57334d9315f812b291343, type: 2}

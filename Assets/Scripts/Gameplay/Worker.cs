@@ -53,16 +53,16 @@ namespace GDTMS
             {
                 List<Skill> sl = null;
                 // Set the second skill
-                if (Random.Range(0, 5) < 4)
-                {
-                    // The same group of the first
-                    sl = skills.FindAll(s => s.Type == prefSkills[0].Type && s != prefSkills[0]);
-                }
-                else
-                {
+                //if (Random.Range(0, 5) < 4)
+                //{
+                //    // The same group of the first
+                //    sl = skills.FindAll(s => s.Type == prefSkills[0].Type && s != prefSkills[0]);
+                //}
+                //else
+                //{
                     // A different group
                     sl = skills.FindAll(s => s != prefSkills[0]);
-                }
+                //}
 
                 prefSkills[1] = sl[Random.Range(0, sl.Count)];
             }

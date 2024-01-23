@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace GDTMS.UI
 {
-    public class WorkerUI : MonoBehaviour
+    public class WorkerFinderItemUI : MonoBehaviour
     {
         [SerializeField]
         TMP_Text fieldName;
@@ -32,14 +32,19 @@ namespace GDTMS.UI
             // Set name
             fieldName.text = worker.Name;
 
+
+
             // Set skills
-            List<SkillType> skillTypes = new List<SkillType>(SkillType.SkillTypeAll);
-            foreach(SkillType st in skillTypes)
+            // Remove the place holder
+            if (skillGroupContent.childCount > 0)
+                DestroyImmediate(skillGroupContent.GetChild(0).gameObject);
+            foreach (Skill skill in worker.Skills)
             {
-                // Create a new skill group
+                // Create a new ui item
                 GameObject sg = Instantiate(skillGroupPrefab, skillGroupContent);
-                
-                sg.GetComponent<SkillGroupUI>().Init(new List<Skill>(worker.Skills.Where(s => s.Type == st)));
+
+                // Set skill name and value
+                sg.GetComponent<SkillUI>().Init(skill);
             }
 
             // Init button

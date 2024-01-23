@@ -72,11 +72,11 @@ namespace GDTMS
             
 
             // Fill the search list
-            int skillCount = Skill.GetSkillAssets().Count;
-            int maxPoints = Skill.MaxMark * skillCount + 1; // +1 to adjust for Random.Range() 
+            //int skillCount = Skill.GetSkillAssets().Count;
+            //int maxPoints = Skill.MaxMark * skillCount + 1; // +1 to adjust for Random.Range() 
             int[] steps = new int[4];
             for (int i = 0; i < 4; i++)
-                steps[i] = Skill.MaxMark * (i + 1);
+                steps[i] = Skill.MaxMark / 2 * (i + 1);
             
 
             int[] marks = new int[missing];
