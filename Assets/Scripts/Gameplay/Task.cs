@@ -98,6 +98,11 @@ namespace GDTMS
         {
             return workers.Count == MaxWorkersPerTask;
         }
+
+        public bool IsAssigned()
+        {
+            return workers.Count > 0;
+        }
     }
 
 }

@@ -49,6 +49,15 @@ namespace GDTMS
         {
             return tasks.Exists(t => t.IsAssignedTo(worker));
         }
+
+        public bool HasAllTasksAssigned()
+        {
+            foreach (Task t in tasks)
+                if (!t.IsAssigned())
+                    return false;
+
+            return true;
+        }
     }
 
 }

@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 6637687326557079440}
   - component: {fileID: 7341666235722837069}
   m_Layer: 5
-  m_Name: HeaderItemUI
+  m_Name: TopItemUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

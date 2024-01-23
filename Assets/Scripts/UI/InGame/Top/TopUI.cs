@@ -23,10 +23,15 @@ namespace GDTMS.UI
         {
             CheckWorkers();
             CheckWorkstations();
+            CheckProjects();
 
             WorkstationManager.Instance.OnWorkstationAssigned += HandleWorkstationChanged;
             WorkstationManager.Instance.OnWorkstationUnassigned += HandleWorkstationChanged;
             WorkerManager.Instance.OnWorkerHired += HandleWorkerHired;
+            ProjectManager.Instance.OnProjectAdded += HandleOnProjectAdded;
+            ProjectManager.Instance.OnProjectQuit += HandleOnProjectQuit;
+            ProjectManager.Instance.OnTaskAssigned += HandleOnTaskAssigned;
+            ProjectManager.Instance.OnTaskUnassigned += HandleOnTaskUnassigned;
         }
 
         void HandleWorkstationChanged(Workstation workstation)
@@ -60,7 +65,50 @@ namespace GDTMS.UI
             else
                 workersUI.HideExclamationPoint();
         }
-                        
+
+        void HandleOnProjectAdded(Project project)
+        {
+            // Check projects
+            CheckProjects();
+            // Check workers
+            CheckWorkers();
+        }
+
+        void HandleOnProjectQuit(Project project)
+        {
+            // Check projects
+            CheckProjects();
+            // Check workers
+            CheckWorkers();
+        }
+
+        void HandleOnTaskAssigned(Project project, Task task, Worker worker)
+        {
+            // Check projects
+            CheckProjects();
+            // Check workers
+            CheckWorkers();
+        }
+
+        void HandleOnTaskUnassigned(Project project, Task task, Worker worker)
+        {
+            // Check projects
+            CheckProjects();
+            // Check workers
+            CheckWorkers();
+        }
+
+        void CheckProjects()
+        {
+            int assigned = ProjectManager.Instance.Projects.Count(p => p.HasAllTasksAssigned());
+            int total = ProjectManager.Instance.Projects.Count;
+            projectsUI.SetTextField(string.Format(textFormat, assigned, total));
+            if (assigned < total)
+                workersUI.ShowExclamationPoint();
+            else
+                workersUI.HideExclamationPoint();
+
+        }
     }
 
 }

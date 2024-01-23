@@ -422,7 +422,7 @@ GameObject:
   - component: {fileID: 9018908959490077412}
   - component: {fileID: 5974189190679526146}
   m_Layer: 5
-  m_Name: WorkerSearchUI
+  m_Name: WorkerFinderUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -528,6 +528,7 @@ MonoBehaviour:
   buttonPrev: {fileID: 4424527077576769698}
   buttonNext: {fileID: 3270680990829960989}
   maxWorkerPerPage: 24
+  forceOnDutyOnly: 0
 --- !u!1 &5028578063654576618
 GameObject:
   m_ObjectHideFlags: 0
