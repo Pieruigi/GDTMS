@@ -21,6 +21,9 @@ namespace GDTMS.UI
         [SerializeField]
         Button buttonHire;
 
+        [SerializeField]
+        TMP_Text textSalary;
+
         Worker worker;
 
         
@@ -46,6 +49,8 @@ namespace GDTMS.UI
                 // Set skill name and value
                 sg.GetComponent<SkillUI>().Init(skill);
             }
+
+            textSalary.text = (worker.GetDailyCost() * FinanceManager.PayDay).ToString();
 
             // Init button
             if (WorkerManager.Instance.IsOnDuty(worker))

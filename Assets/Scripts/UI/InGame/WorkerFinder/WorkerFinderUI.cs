@@ -1,3 +1,4 @@
+using GDTMS.Scriptables;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -26,9 +27,20 @@ namespace GDTMS.UI
         [SerializeField]
         bool forceOnDutyOnly = false;
 
+        [SerializeField]
+        GameObject skillFilterPrefab;
+
+        [SerializeField]
+        Transform filterContent;
+
+
+        Toggle salaryFilter;
+
         List<Worker> workers = new List<Worker>();
 
         int currentPage = 0;
+        string salaryFilterName = "salary";
+        Toggle defaultFilter;
 
         private void Awake()
         {
@@ -36,20 +48,21 @@ namespace GDTMS.UI
             buttonPrev.onClick.AddListener(() => { currentPage--; ShowCurrentPage(); });
             buttonNext.onClick.AddListener(() => { currentPage++; ShowCurrentPage(); });
 
+            
+
+            // Deactivate object
             gameObject.SetActive(false);
         }
 
-        private void Start()
-        {
-            
-        }
+        
 
         private void OnEnable()
         {
             Debug.Log("Enable UI");
-            // Set worker internal list
-            //if (!WorkerSearchManager.Instance)
-            //    return;
+
+           
+
+            // Get list of workers
             if (!forceOnDutyOnly)
             {
                 workers = new List<Worker>(WorkerFinder.Instance.SearchList);
@@ -60,15 +73,21 @@ namespace GDTMS.UI
                 foreach (WorkerAgreement wa in WorkerManager.Instance.Agreements)
                     workers.Add(wa.Worker);
             }
-                
-                
 
             // Reset current page
             currentPage = 0;
-            // Show current page
-            if(workers.Count > 0)
-                ShowCurrentPage();
+
+            if (defaultFilter == null)
+                InitFilters();
+            else
+                ResetFilters();
+
+
             
+            //// Show current page
+            //if(workers.Count > 0)
+            //    ShowCurrentPage();
+
         }
 
         private void OnDisable()
@@ -83,6 +102,8 @@ namespace GDTMS.UI
             workers.Clear();
             workers = null;
         }
+
+  
 
         void ShowCurrentPage()
         {
@@ -122,6 +143,60 @@ namespace GDTMS.UI
             for (int i = 0; i < count; i++)
                 DestroyImmediate(content.GetChild(0).gameObject);
         }
+
+        void ResetFilters()
+        {
+            Toggle[] toggles = filterContent.GetComponentsInChildren<Toggle>();
+            foreach (var t in toggles)
+            {
+                t.isOn = false;
+            }
+            defaultFilter.isOn = true;
+           
+        }
+
+        #region filters
+        void InitFilters()
+        {
+            // Get the toggle group
+            ToggleGroup toggleGroup = filterContent.GetComponent<ToggleGroup>();
+
+            // Init the salary filter
+            ToggleFilterUI salaryFilter = filterContent.GetComponentInChildren<ToggleFilterUI>();
+            defaultFilter = salaryFilter.GetComponent<Toggle>();
+            defaultFilter.isOn = true;
+            salaryFilter.Init(salaryFilterName, OnFilterChanged, toggleGroup);
+
+            // Init the sill filters
+            List<SkillAsset> assets = new List<SkillAsset>(Resources.LoadAll<SkillAsset>(SkillAsset.ResourceFolder));
+            foreach (var asset in assets)
+            {
+                GameObject sf = Instantiate(skillFilterPrefab, filterContent);
+                // Set off
+                sf.GetComponent<ToggleFilterUI>().Init(asset.name, OnFilterChanged, toggleGroup);
+                sf.GetComponent<Toggle>().isOn = false;
+            }
+            OnFilterChanged(true, salaryFilterName);
+        }
+
+        void OnFilterChanged(bool value, string filterName)
+        {
+            if (workers == null || workers.Count == 0)
+                return;
+            Debug.Log($"ApplyFilter {filterName}");
+            if (salaryFilterName.Equals(filterName.ToLower()))
+            {
+                // Apply salary filter
+                workers.Sort(new WorkerFilterUtility(false).CompareByPrice);
+            }
+            else
+            {
+                // Apply skill filter
+            }
+
+            ShowCurrentPage();
+        }
+        #endregion
     }
 
 }
