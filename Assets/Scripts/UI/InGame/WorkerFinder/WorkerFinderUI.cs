@@ -33,6 +33,8 @@ namespace GDTMS.UI
         [SerializeField]
         Transform filterContent;
 
+        [SerializeField]
+        Toggle directionToggle;
 
         Toggle salaryFilter;
 
@@ -40,7 +42,9 @@ namespace GDTMS.UI
 
         int currentPage = 0;
         string salaryFilterName = "salary";
+        string lastFilterName;
         Toggle defaultFilter;
+
 
         private void Awake()
         {
@@ -134,7 +138,7 @@ namespace GDTMS.UI
                 buttonNext.interactable = true;
 
             // Update page num text
-            textPageNum.text = currentPage.ToString();
+            textPageNum.text = (currentPage+1).ToString();
         }
 
         void ClearWorkerUIAll()
@@ -176,7 +180,13 @@ namespace GDTMS.UI
                 sf.GetComponent<ToggleFilterUI>().Init(asset.name, OnFilterChanged, toggleGroup);
                 sf.GetComponent<Toggle>().isOn = false;
             }
-            OnFilterChanged(true, salaryFilterName);
+
+            // Init direction toggle
+            directionToggle.onValueChanged.AddListener((v) => { OnFilterChanged(true, lastFilterName); });
+            directionToggle.transform.SetAsLastSibling();
+
+            //OnFilterChanged(true, salaryFilterName);
+            ResetFilters();
         }
 
         void OnFilterChanged(bool value, string filterName)
@@ -184,14 +194,16 @@ namespace GDTMS.UI
             if (workers == null || workers.Count == 0)
                 return;
             Debug.Log($"ApplyFilter {filterName}");
+            lastFilterName = filterName;
             if (salaryFilterName.Equals(filterName.ToLower()))
             {
                 // Apply salary filter
-                workers.Sort(new WorkerFilterUtility(false).CompareByPrice);
+                workers.Sort(new WorkerFilterUtility(directionToggle.isOn).CompareBySalary);
             }
             else
             {
                 // Apply skill filter
+                workers.Sort(new WorkerFilterUtility(directionToggle.isOn, filterName).CompareBySkill);
             }
 
             ShowCurrentPage();

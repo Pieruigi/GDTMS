@@ -1944,30 +1944,6 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 1960710175209386036}
-    - target: {fileID: 219503465388019619, guid: f462902781a9c7f489e0e6fe226f83d8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: set_interactable
-      objectReference: {fileID: 0}
-    - target: {fileID: 219503465388019619, guid: f462902781a9c7f489e0e6fe226f83d8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: set_interactable
-      objectReference: {fileID: 0}
-    - target: {fileID: 219503465388019619, guid: f462902781a9c7f489e0e6fe226f83d8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_TargetAssemblyTypeName
-      value: UnityEngine.UI.Selectable, UnityEngine.UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 219503465388019619, guid: f462902781a9c7f489e0e6fe226f83d8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_TargetAssemblyTypeName
-      value: UnityEngine.UI.Selectable, UnityEngine.UI
-      objectReference: {fileID: 0}
-    - target: {fileID: 219503465388019619, guid: f462902781a9c7f489e0e6fe226f83d8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 219503465388019619, guid: f462902781a9c7f489e0e6fe226f83d8, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_BoolArgument
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3015039767050798699, guid: f462902781a9c7f489e0e6fe226f83d8, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2091,6 +2067,22 @@ PrefabInstance:
     - target: {fileID: 4581563417123683985, guid: f462902781a9c7f489e0e6fe226f83d8, type: 3}
       propertyPath: m_Name
       value: WorkerFinderUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5433999383164527049, guid: f462902781a9c7f489e0e6fe226f83d8, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5433999383164527049, guid: f462902781a9c7f489e0e6fe226f83d8, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5433999383164527049, guid: f462902781a9c7f489e0e6fe226f83d8, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5433999383164527049, guid: f462902781a9c7f489e0e6fe226f83d8, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5522442813115736854, guid: f462902781a9c7f489e0e6fe226f83d8, type: 3}
       propertyPath: m_SizeDelta.x
