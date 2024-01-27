@@ -23,8 +23,13 @@ namespace GDTMS.UI
         [SerializeField]
         int maxItemsPerPage = 24;
 
+        [SerializeField]
+        PaginatorFilterUI paginatorFilterUI;
+
         int currentPage = 0;
         List<object> items = new List<object>();
+
+        
 
         protected abstract IList<object> GetItemList();
 
@@ -51,11 +56,19 @@ namespace GDTMS.UI
             // Reset current page
             currentPage = 0;
 
-           
+            if (paginatorFilterUI)
+            {
+                paginatorFilterUI.OnChanged += ApplyFilter;
+                paginatorFilterUI.Activate();
+            }
+            else
+            {
+                // Show current page
+                if (items.Count > 0)
+                    ShowCurrentPage();
+            }    
 
-            // Show current page
-            if(items.Count > 0)
-                ShowCurrentPage();
+            
 
         }
 
@@ -66,7 +79,22 @@ namespace GDTMS.UI
 
             // Release list
             items.Clear();
-          
+
+            if (paginatorFilterUI)
+            {
+                paginatorFilterUI.OnChanged -= ApplyFilter;
+                paginatorFilterUI.Deactivate();
+            }
+        }
+
+        void ApplyFilter(string filterName)
+        {
+            Debug.Log($"Apply filter:{filterName}");
+            paginatorFilterUI.Apply(ref items, filterName);
+            Debug.Log($"Apply filter - items.Count:{items.Count}");
+            // Show current page
+            if (items.Count > 0)
+                ShowCurrentPage();
         }
 
         void ShowCurrentPage()
@@ -107,6 +135,8 @@ namespace GDTMS.UI
             for (int i = 0; i < count; i++)
                 DestroyImmediate(content.GetChild(0).gameObject);
         }
+
+        
     }
 
 }

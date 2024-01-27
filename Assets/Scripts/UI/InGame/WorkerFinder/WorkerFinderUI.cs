@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace GDTMS.UI
@@ -8,11 +9,7 @@ namespace GDTMS.UI
     {
         protected override IList<object> GetItemList()
         {
-            //return (IList<object>)WorkerFinder.Instance.SearchList;
-            List<object> ret = new List<object>();
-            foreach (var w in WorkerFinder.Instance.SearchList)
-                ret.Add(w);
-            return ret.AsReadOnly();
+            return WorkerFinder.Instance.SearchList.Cast<object>().ToList().AsReadOnly();
         }
     }
 
