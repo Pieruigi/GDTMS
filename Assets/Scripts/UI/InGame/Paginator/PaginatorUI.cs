@@ -59,7 +59,7 @@ namespace GDTMS.UI
             if (paginatorFilterUI)
             {
                 paginatorFilterUI.OnChanged += ApplyFilter;
-                paginatorFilterUI.Activate();
+                paginatorFilterUI.Reset();
             }
             else
             {
@@ -83,7 +83,7 @@ namespace GDTMS.UI
             if (paginatorFilterUI)
             {
                 paginatorFilterUI.OnChanged -= ApplyFilter;
-                paginatorFilterUI.Deactivate();
+                //paginatorFilterUI.Deactivate();
             }
         }
 

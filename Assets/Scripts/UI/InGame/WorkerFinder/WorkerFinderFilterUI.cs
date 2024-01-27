@@ -96,7 +96,7 @@ namespace GDTMS.UI
             items = workers.Cast<object>().ToList();
         }
 
-        public override void Activate()
+        public override void Reset()
         {
             if (!defaultFilter)
                 InitFilter();
@@ -104,10 +104,10 @@ namespace GDTMS.UI
                 ResetFilter();
         }
 
-        public override void Deactivate()
-        {
-            ResetFilter();
-        }
+        //public override void Deactivate()
+        //{
+        //    ResetFilter();
+        //}
     }
 
 }
