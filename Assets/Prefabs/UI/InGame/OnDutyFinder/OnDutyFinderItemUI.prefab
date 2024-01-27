@@ -376,9 +376,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3073041177717879998}
-  - component: {fileID: 4029236888380302552}
   m_Layer: 5
-  m_Name: WorkerFinderItemUI
+  m_Name: OnDutyFinderItemUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -404,23 +403,6 @@ RectTransform:
   m_AnchoredPosition: {x: -960, y: -540}
   m_SizeDelta: {x: 300, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &4029236888380302552
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1719268385511538518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a717163c9a4ba341b4510a95b81ab2c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  fieldName: {fileID: 7885135376232741629}
-  skillPrefab: {fileID: 3401882301671805352, guid: 2366290c181d0c040919844d92e0e89f, type: 3}
-  skillGroupContent: {fileID: 7509106197363420132}
-  buttonHire: {fileID: 7351633676639200592}
-  textSalary: {fileID: 8289235565577270304}
 --- !u!1 &1905326417703816556
 GameObject:
   m_ObjectHideFlags: 0

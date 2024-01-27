@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace GDTMS.UI
+namespace GDTMS.UI.OLD
 {
-    public class WorkerFinderItemUI : PaginatorItemUI
+    public class WorkerFinderItemUI : MonoBehaviour
     {
         [SerializeField]
         TMP_Text fieldName;
 
         [SerializeField]
-        GameObject skillPrefab;
+        GameObject skillGroupPrefab; 
 
         [SerializeField]
         Transform skillGroupContent;
@@ -23,15 +24,18 @@ namespace GDTMS.UI
         [SerializeField]
         TMP_Text textSalary;
 
+        Worker worker;
 
-        public override void Init(object item)
+        
+
+        public void Init(Worker worker)
         {
-            base.Init(item);
-
-            Worker worker = (Worker)Item;
+            this.worker = worker;
 
             // Set name
             fieldName.text = worker.Name;
+
+
 
             // Set skills
             // Remove the place holder
@@ -40,7 +44,7 @@ namespace GDTMS.UI
             foreach (Skill skill in worker.Skills)
             {
                 // Create a new ui item
-                GameObject sg = Instantiate(skillPrefab, skillGroupContent);
+                GameObject sg = Instantiate(skillGroupPrefab, skillGroupContent);
 
                 // Set skill name and value
                 sg.GetComponent<SkillUI>().Init(skill);
@@ -55,9 +59,8 @@ namespace GDTMS.UI
 
         public void Hire()
         {
-            WorkerManager.Instance.Hire((Worker)Item);
+            WorkerManager.Instance.Hire(worker);
         }
-
-
     }
+
 }
