@@ -9,7 +9,10 @@ namespace GDTMS.UI
     {
         protected override IList<object> GetItemList()
         {
-            return WorkerFinder.Instance.SearchList.Cast<object>().ToList().AsReadOnly();
+            if (!WorkerFinder.Instance)
+                return new List<object>();
+            else
+                return WorkerFinder.Instance.SearchList.Cast<object>().ToList().AsReadOnly();
         }
     }
 

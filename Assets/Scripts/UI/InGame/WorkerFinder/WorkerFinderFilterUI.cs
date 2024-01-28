@@ -27,21 +27,38 @@ namespace GDTMS.UI
         string lastFilterName;
         Toggle defaultFilter;
 
-        
+
+        protected override void Reset()
+        {
+            Debug.Log($"BUG - Reset - Default:{defaultFilter}");
+
+            if (!defaultFilter)
+                InitFilter();
+            else
+                ResetFilter();
+        }
+
+
         void ResetFilter()
         {
+            Debug.Log($"BUG - ResetFilter");
             Toggle[] toggles = filterContent.GetComponentsInChildren<Toggle>();
             foreach (var t in toggles)
             {
                 t.isOn = false;
             }
+            Debug.Log($"BUG - DefaultFilter:{defaultFilter}");
             if(defaultFilter)
                 defaultFilter.isOn = true;
 
         }
 
+
+
         void InitFilter()
         {
+            Debug.Log($"BUG - InitFilter");
+
             // Get the toggle group
             ToggleGroup toggleGroup = filterContent.GetComponent<ToggleGroup>();
 
@@ -70,19 +87,20 @@ namespace GDTMS.UI
 
         void OnFilterChanged(bool value, string filterName)
         {
-            OnChanged?.Invoke(filterName);
-
+            //OnChanged?.Invoke(filterName);
+            lastFilterName = filterName;
+            Apply();
         }
 
-        public override void Apply(ref List<object> items, string filterName)
+        public override void Apply(ref List<object> items)
         {
             workers = items.Cast<Worker>().ToList();
 
             if (workers == null || workers.Count == 0)
                 return;
-            Debug.Log($"ApplyFilter {filterName}");
-            lastFilterName = filterName;
-            if (salaryFilterName.Equals(filterName.ToLower()))
+            Debug.Log($"ApplyFilter {lastFilterName}");
+          
+            if (salaryFilterName.Equals(lastFilterName.ToLower()))
             {
                 // Apply salary filter
                 workers.Sort(new WorkerFilterUtility(directionToggle.isOn).CompareBySalary);
@@ -90,24 +108,15 @@ namespace GDTMS.UI
             else
             {
                 // Apply skill filter
-                workers.Sort(new WorkerFilterUtility(directionToggle.isOn, filterName).CompareBySkill);
+                workers.Sort(new WorkerFilterUtility(directionToggle.isOn, lastFilterName).CompareBySkill);
             }
             
             items = workers.Cast<object>().ToList();
         }
 
-        public override void Reset()
-        {
-            if (!defaultFilter)
-                InitFilter();
-            else
-                ResetFilter();
-        }
+       
 
-        //public override void Deactivate()
-        //{
-        //    ResetFilter();
-        //}
+
     }
 
 }

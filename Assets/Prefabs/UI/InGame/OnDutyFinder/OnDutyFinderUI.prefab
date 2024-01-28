@@ -689,7 +689,7 @@ GameObject:
   - component: {fileID: 3602020613885813422}
   - component: {fileID: 1588832965006545878}
   - component: {fileID: 3466254462993879470}
-  - component: {fileID: 6663764628298637605}
+  - component: {fileID: 5383832512923941841}
   m_Layer: 5
   m_Name: OnDutyFinderUI
   m_TagString: Untagged
@@ -780,7 +780,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6663764628298637605
+--- !u!114 &5383832512923941841
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -789,19 +789,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5058018422137517011}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20b7c009b960a63459c5e5a77481aa8c, type: 3}
+  m_Script: {fileID: 11500000, guid: c4d2e87a61e73a14b816a8de2099aff8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  workerPrefab: {fileID: 1719268385511538518, guid: d2e2c5bd191917e4c98c3c7383c0babc, type: 3}
+  itemPrefab: {fileID: 1719268385511538518, guid: 666bece15f8b78c4195901654a6b04b9, type: 3}
   content: {fileID: 6217832582918621279}
   buttonPrev: {fileID: 770725240084131735}
   buttonNext: {fileID: 5748874120632360258}
   textPageNum: {fileID: 3886717638820413092}
-  maxWorkerPerPage: 12
-  forceOnDutyOnly: 0
-  skillFilterPrefab: {fileID: 4486342467746548601, guid: 66e37a8ed7a906a44b55c0b8f791441d, type: 3}
-  filterContent: {fileID: 8727050676090203191}
-  directionToggle: {fileID: 9083124020873432754}
+  maxItemsPerPage: 12
 --- !u!1 &5382228374307419816
 GameObject:
   m_ObjectHideFlags: 0

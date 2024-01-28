@@ -7,27 +7,36 @@ namespace GDTMS.UI
 {
     public abstract class PaginatorFilterUI : MonoBehaviour
     {
+        PaginatorUI paginatorUI;
+
+      
         /// <summary>
-        /// Called when filter changes: paginator ui should register on this event
+        /// Called by the paginator ui
         /// </summary>
-        public UnityAction<string> OnChanged;
+        /// <param name="items"></param>        
+        public abstract void Apply(ref List<object> items);
+
+        protected abstract void Reset();
+
+        protected virtual void Awake()
+        {
+            paginatorUI = GetComponentInParent<PaginatorUI>();
+            paginatorUI.UseExternalFilter = true;
+        }
 
         /// <summary>
-        /// Called by the paginator ui when the filter has changed
+        /// Called when filter changes
         /// </summary>
-        /// <param name="items"></param>
-        /// <param name="filterName"></param>
-        public abstract void Apply(ref List<object> items, string filterName);
+        protected virtual void Apply()
+        {
+            paginatorUI.ApplyFilter(this);
+        }
 
-        /// <summary>
-        /// Init the filter
-        /// </summary>
-        public abstract void Reset();
-
-        /// <summary>
-        /// Reset the filter
-        /// </summary>
-        //public abstract void Deactivate();
+        protected virtual void OnEnable()
+        {
+            Debug.Log("BUG - Reset");
+            Reset();
+        }
     }
 
 }
