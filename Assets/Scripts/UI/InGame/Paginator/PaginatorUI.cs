@@ -36,20 +36,15 @@ namespace GDTMS.UI
             buttonPrev.onClick.AddListener(() => { currentPage--; ShowCurrentPage(); });
             buttonNext.onClick.AddListener(() => { currentPage++; ShowCurrentPage(); });
 
-
-
             // Deactivate object
             gameObject.SetActive(false);
         }
 
         protected virtual void OnEnable()
         {
-            Debug.Log("Enable UI");
-
-
+            // Get items
             items = new List<object>(GetItemList());
-            Debug.Log($"Items.Count:{items.Count}");
-
+            
             // Reset current page
             currentPage = 0;
 
@@ -75,11 +70,9 @@ namespace GDTMS.UI
 
         public void ApplyFilter(PaginatorFilterUI filter)
         {
-            Debug.Log($"Apply filter:{filter.name}");
             // Apply filter
             items = new List<object>(GetItemList());
             filter.Apply(ref items);
-            Debug.Log($"Apply filter - items.Count:{items.Count}");
             
             // Show current page
             if (items.Count > 0)

@@ -30,8 +30,6 @@ namespace GDTMS.UI
 
         protected override void Reset()
         {
-            Debug.Log($"BUG - Reset - Default:{defaultFilter}");
-
             if (!defaultFilter)
                 InitFilter();
             else
@@ -41,13 +39,14 @@ namespace GDTMS.UI
 
         void ResetFilter()
         {
-            Debug.Log($"BUG - ResetFilter");
+            // Reset all toggles
             Toggle[] toggles = filterContent.GetComponentsInChildren<Toggle>();
             foreach (var t in toggles)
             {
                 t.isOn = false;
             }
-            Debug.Log($"BUG - DefaultFilter:{defaultFilter}");
+            
+            // Set default toggle on
             if(defaultFilter)
                 defaultFilter.isOn = true;
 
@@ -57,8 +56,6 @@ namespace GDTMS.UI
 
         void InitFilter()
         {
-            Debug.Log($"BUG - InitFilter");
-
             // Get the toggle group
             ToggleGroup toggleGroup = filterContent.GetComponent<ToggleGroup>();
 
@@ -85,6 +82,11 @@ namespace GDTMS.UI
             ResetFilter();
         }
 
+        /// <summary>
+        /// Called by toggle listener
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="filterName"></param>
         void OnFilterChanged(bool value, string filterName)
         {
             //OnChanged?.Invoke(filterName);
@@ -98,8 +100,7 @@ namespace GDTMS.UI
 
             if (workers == null || workers.Count == 0)
                 return;
-            Debug.Log($"ApplyFilter {lastFilterName}");
-          
+           
             if (salaryFilterName.Equals(lastFilterName.ToLower()))
             {
                 // Apply salary filter
