@@ -1292,7 +1292,6 @@ MonoBehaviour:
   buttonNext: {fileID: 164809062387584929}
   textPageNum: {fileID: 6034433579435024021}
   maxItemsPerPage: 12
-  paginatorFilterUI: {fileID: 723583045910097546}
 --- !u!1001 &791619882813096543
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1390,17 +1389,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6374ad3faf30bb45b84ca40e530e382, type: 3}
---- !u!114 &723583045910097546 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 69463728143297749, guid: f6374ad3faf30bb45b84ca40e530e382, type: 3}
-  m_PrefabInstance: {fileID: 791619882813096543}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52d233cdb32205a46a356dcc619f33da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &922593231000010756 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 446370595615638107, guid: f6374ad3faf30bb45b84ca40e530e382, type: 3}

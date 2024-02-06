@@ -82,7 +82,16 @@ namespace GDTMS
 
             return true;
         }
-
+        
+        public bool HasAssignedAny(Worker worker)
+        {
+            foreach(var w in workstations)
+            {
+                if (w.User == worker)
+                    return true;
+            }
+            return false;
+        }
         
     }
 

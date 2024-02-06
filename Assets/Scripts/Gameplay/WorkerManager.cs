@@ -60,7 +60,6 @@ namespace GDTMS
             return agreements.Exists(wa => wa.Worker == worker);
         }
 
-       
 
         #region save system
       

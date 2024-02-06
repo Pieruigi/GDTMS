@@ -33,27 +33,15 @@ namespace GDTMS
         void HandleOnDayCompleted(int day)
         {
             if (day % UpdateDay == 0)
-                UpdateProjectList();
+                CreateOrUpdateProjectList();
         }
 
-        void UpdateProjectList()
+        void CreateOrUpdateProjectList()
         {
-
+            
         }
 
 
-
-        //public void AssignWorker(Task task, Worker worker)
-        //{
-        //    if (task.Completed())
-        //        return;
-        //    task.Assign(worker);
-        //}
-
-        //public void UnassignWorker(Task task, Worker worker)
-        //{
-        //    task.Unassign(worker);
-        //}
     }
 
 }

@@ -41,7 +41,7 @@ namespace GDTMS.UI
                 //group.RegisterToggle(toggle);
             }
                 
-            toggle.onValueChanged.AddListener((v) => { if (v) toggleCallback(v, filterName); });
+            toggle.onValueChanged.AddListener((v) => { toggleCallback(v, filterName); });
 
             if (imageOn)
                 this.imageOn.sprite = imageOn;

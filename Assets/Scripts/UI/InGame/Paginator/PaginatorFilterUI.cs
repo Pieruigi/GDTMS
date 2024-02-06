@@ -27,7 +27,7 @@ namespace GDTMS.UI
         /// <summary>
         /// Called when filter changes
         /// </summary>
-        protected virtual void Apply()
+        protected virtual void ReportPaginator()
         {
             paginatorUI.ApplyFilter(this);
         }

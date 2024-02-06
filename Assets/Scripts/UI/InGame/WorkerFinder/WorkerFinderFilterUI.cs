@@ -90,8 +90,11 @@ namespace GDTMS.UI
         void OnFilterChanged(bool value, string filterName)
         {
             //OnChanged?.Invoke(filterName);
+            if (!value)
+                return;
+
             lastFilterName = filterName;
-            Apply();
+            ReportPaginator();
         }
 
         public override void Apply(ref List<object> items)

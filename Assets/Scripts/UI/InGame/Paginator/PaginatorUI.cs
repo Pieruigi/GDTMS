@@ -51,8 +51,8 @@ namespace GDTMS.UI
             if (!UseExternalFilter)
             {
                 // Show current page
-                if (items.Count > 0)
-                    ShowCurrentPage();
+                //if (items.Count > 0)
+                ShowCurrentPage();
             }
 
         }
@@ -75,8 +75,8 @@ namespace GDTMS.UI
             filter.Apply(ref items);
             
             // Show current page
-            if (items.Count > 0)
-                ShowCurrentPage();
+            //if (items.Count > 0)
+            ShowCurrentPage();
         }
 
         void ShowCurrentPage()
